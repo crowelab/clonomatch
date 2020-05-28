@@ -1,0 +1,40 @@
+.ReactModalPortal {
+  position: relative;
+  z-index: 2;
+}
+
+.ReactModal__CustomOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReactModal__CustomContent {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+//.modal-content {
+//  justify-content: space-between;
+//  padding: map-get($spacing, large) map-get($spacing, medium);
+//}
+//
+//.modal-header {
+//  width: 100%;
+//  background-color: $color-scheme-1-bg-light;
+//  margin: 0;
+//  color: #fff;
+//  padding: map-get($spacing, large);
+//
+//  > * {
+//    margin: 0;
+//  }
+//}
+//
+//.modal-close {
+//  padding: map-get($spacing, huge) map-get($spacing, medium);
+//}

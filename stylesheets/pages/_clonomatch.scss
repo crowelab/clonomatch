@@ -1,0 +1,51 @@
+#clonomatch-page {
+  //> * {
+  //  margin: map-get($spacing, huge) 0;
+  //}
+}
+
+.clonomatch-element {
+  transition: transform 600ms, opacity 600ms;
+  //display: none;
+}
+
+.clonomatch-element-enter {
+  position: absolute;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.clonomatch-element-enter-active {
+  position: relative;
+  opacity: 1.0;
+  transform: translateY(0);
+  //dis
+}
+
+.clonomatch-element-enter-done {
+  position: relative;
+  opacity: 1.0;
+  transform: translateY(0);
+}
+
+.clonomatch-element-exit {
+  position: absolute;
+  transform: translateY(0);
+  opacity: 1.0;
+}
+
+.clonomatch-element-exit-active {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.clonomatch-element-exit-done {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.clonomatch-loading-bar {
+  margin: map-get($spacing, large);
+}

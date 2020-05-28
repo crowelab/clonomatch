@@ -1,0 +1,65 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #2db4e5;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease, opacity 250ms;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  //border-radius: map-get($border-radius, medium);
+  box-shadow: map-get($box-shadow, tiny);
+
+  &:hover, &:focus {
+    background: #1890bc;
+  }
+
+  &.contrast {
+    background: #e07a5f;
+  }
+
+  &.secondary {
+    background: #30bced;
+
+    &:hover, &:focus {
+      background: #1890bc;
+    }
+  }
+
+  &.utility {
+    background: #fff;
+    color: #333;
+
+    &:hover, &:focus {
+      background: #e0e0e0;
+    }
+  }
+
+  &.small {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+button:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+button:focus {
+  outline: 1px dashed #fff;
+  //outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+}

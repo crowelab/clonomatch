@@ -1,0 +1,24 @@
+.hover-frame {
+  position: absolute;
+  display: flex;
+  //height: 100%;/**/
+  width: 100%;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: map-get($border-radius, medium);
+  background-color: #ccc;
+  z-index: 2;
+  border: 12px dashed #666;
+  pointer-events: none;
+
+  &.visible {
+    opacity: 0.5;
+    transition-duration: 200ms;
+    //pointer-events: auto;
+  }
+}
+
+.hover-message {
+
+}

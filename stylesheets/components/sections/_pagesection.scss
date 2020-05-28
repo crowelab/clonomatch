@@ -1,0 +1,66 @@
+.page-section-container {
+  width: 100%;
+  min-height: 75vh;
+
+  &#clonomatch-section-container {
+    color: #FFF;
+    //background-color: #30bced;
+    background-image: linear-gradient(#30bced, #d9eff7);
+    //background-position: left bottom;
+    //background-size: cover;
+    //background-repeat: no-repeat;
+    min-height: 95vh;
+  }
+  &#documentation-section-container {
+    background-color: #d9eff7;
+  }
+  &#links-section-container {
+    //background-color: #d9eff7;
+    background-image: linear-gradient(#d9eff7, #f9f9ff);
+  }
+
+}
+
+.page-section {
+  max-width: 1024px;
+
+
+}
+
+#clonomatch-section-header {
+  background: url(images/bg_patterns/bg3.png) left;
+  background-size: contain;
+  position: relative;
+  left: -50%;
+  width: 200%;
+}
+
+#clonomatch-results-container {
+  transition: height 1.5s;
+
+  > div > span {
+    font-size: 1.5em;
+  }
+}
+
+#clonomatch-section-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  //background: url(images/bg_patterns/bg3.png) left;
+  //background-size: contain;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #clonomatch-section-options {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #clonomatch-section-results {
+    display: none;
+  }
+}

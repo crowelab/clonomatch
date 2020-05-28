@@ -1,0 +1,55 @@
+.options {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 8px;
+  padding-bottom: map-get($spacing, huge);
+}
+
+.options-grid-new {
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.executable-option {
+  align-items: flex-start;
+
+
+  > input {
+    margin: 4px;
+    color: #333;
+  }
+
+  > input[type=number]::-webkit-inner-spin-button,
+  > input[type=number]::-webkit-outer-spin-button {
+
+  }
+}
+
+.executable-option-label {
+  padding: 0 map-get($spacing, small);
+  font-weight: bold;
+  //color: #fff;
+}
+
+#v-input, #j-input {
+  color: #333;
+  width: 180px;
+
+  &>div {
+    border-radius: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  //#v_family-input { width: 100px; }
+
+  //#j_family-input { width: 100px; }
+}

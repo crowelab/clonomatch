@@ -1,0 +1,165 @@
+// -----------------------------------------------------------------------------
+// This file contains CSS helper classes.
+// -----------------------------------------------------------------------------
+
+/**
+ * Clear inner floats
+ */
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.container {
+  margin: 16px;
+  padding: 16px;
+  border-radius: map-get($border-radius, medium);
+  transition: background-color 200ms;
+  //background-color: $color-white;
+  //
+  //&.highlighted {
+  //  background-color: $color-blue-3;
+  //  //box-shadow: map-get($box-shadow, medium);
+  //}
+}
+
+//.hover-highlight {
+//  &:hover {
+//    background-color: $color-blue-3;
+//  }
+//}
+
+.centered {
+  text-align: center;
+}
+
+%flex-container {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.flex-row {
+  @extend %flex-container;
+  flex-direction: row;
+
+  &.centered-vert { align-items: center; }
+  &.centered-horiz { justify-content: center; }
+}
+
+.flex-column {
+  @extend %flex-container;
+  flex-direction: column;
+
+  &.centered-horiz { align-items: center; }
+  &.centered-vert { justify-content: center; }
+}
+
+.flex-none { flex: none; }
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
+.flex-4 { flex: 4; }
+.flex-5 { flex: 5; }
+
+.spacing-small { padding: map-get($spacing, small); }
+.spacing-medium { padding: map-get($spacing, medium); }
+.spacing-large { padding: map-get($spacing, large); }
+.spacing-huge { padding: map-get($spacing, huge); }
+.spacing-gargantuan { padding: map-get($spacing, gargantuan); }
+
+.margin-small { margin: map-get($spacing, small); }
+.margin-medium { margin: map-get($spacing, medium); }
+.margin-large { margin: map-get($spacing, large); }
+.margin-huge { margin: map-get($spacing, huge); }
+.margin-gargantuan { margin: map-get($spacing, gargantuan); }
+
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.align-start { align-items: flex-start; }
+.align-end { align-items: flex-end; }
+.justify-between { justify-content: space-between; }
+.align-between { align-items: space-between; }
+
+.full-width { width: 100%; }
+.full-height { height: 100%; }
+
+.width-90 { width: 90%; }
+.width-80 { width: 80%; }
+.width-70 { width: 70%; }
+
+.scrollable { overflow: scroll; }
+.clickable { cursor: pointer; }
+.no-margin { margin: 0; }
+.no-wrap { white-space: nowrap;}
+.pointer { cursor: pointer; }
+
+.monospace {
+  font-family: Courier, monospace;
+  white-space: pre;
+  text-align: left;
+}
+
+//.hidden {
+//
+//}
+.hideable {
+  transition: opacity 500ms;
+  opacity: 1;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.text-size-huge { font-size: 1.5em; }
+.text-size-large { font-size: 1.25em; }
+.text-size-medium { font-size: 1em; }
+.text-size-small { font-size: 0.8em; }
+
+.bold-text { font-weight: bold; }
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+.hide-text {
+  overflow: hidden;
+  padding: 0; /* 1 */
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@media only screen and (max-width: 600px) {
+  .spacing-small { padding: map-get($spacing-mobile, small); }
+  .spacing-medium { padding: map-get($spacing-mobile, medium); }
+  .spacing-large { padding: map-get($spacing-mobile, large); }
+  .spacing-huge { padding: map-get($spacing-mobile, huge); }
+  .spacing-gargantuan { padding: map-get($spacing-mobile, gargantuan); }
+
+  .margin-small { margin: map-get($spacing-mobile, small); }
+  .margin-medium { margin: map-get($spacing-mobile, medium); }
+  .margin-large { margin: map-get($spacing-mobile, large); }
+  .margin-huge { margin: map-get($spacing-mobile, huge); }
+  .margin-gargantuan { margin: map-get($spacing-mobile, gargantuan); }
+}

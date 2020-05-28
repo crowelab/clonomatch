@@ -1,0 +1,120 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+//
+//
+//
+//
+///// Regular font family
+///// @type List
+//$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+//
+///// Code (monospace) font family
+///// @type List
+//$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+//
+//
+//
+////
+////
+///// Copy text color
+///// @type Color
+//$text-color: rgb(34, 34, 34) !default;
+//
+///// Main brand color
+///// @type Color
+////$brand-color: rgb(229, 0, 80) !default;
+//$brand-color: #dd2c46;
+//
+///// Light grey
+///// @type Color
+//$light-grey: rgb(237, 237, 237) !default;
+//
+///// Medium grey
+///// @type Color
+//$mid-grey: rgb(153, 153, 153) !default;
+//
+///// Dark grey
+///// @type Color
+//$dark-grey: rgb(68, 68, 68) !default;
+//
+//
+//$color-white: rgb(255, 255, 255);
+//$color-mint: rgb(239, 246, 238);
+//
+////$color-blue: rgb(137,172,180);
+////$color-blue-2: rgb(216,231,234);
+////$color-blue-3: rgb(235,243,244);
+////$color-blue-4: rgb(245,249,249);
+//
+//$color-blue: #616876;
+//$color-blue-2: #d2d3d5;
+//$color-blue-3: #E7E8EA;
+//$color-blue-4: #F3F3F4;
+//
+//$color-dark-blue: rgb(39,48,67);
+//$color-dark-blue-2: rgb(58,66,84);
+//
+////$color-red: rgb(229, 0, 80);
+//$color-red: #dd2c46;
+//$color-red-visited: #dd4d63;
+//
+//$color-scheme-1-bg: #383f51;
+//$color-scheme-1-bg-light: #98C1D9;
+//$color-scheme-1-accent-1: #98822B;
+
+$spacing: (
+  small: 0.25em,
+  medium: 0.5em,
+  large: 1em,
+  huge: 2em,
+  gargantuan: 3em
+);
+
+$spacing-mobile: (
+        small: 0.25em,
+        medium: 0.5em,
+        large: 1em,
+        huge: 1.5em,
+        gargantuan: 2em
+);
+
+$border-radius: (
+  small: 4px,
+  medium: 8px,
+  large: 12px
+);
+
+$box-shadow: (
+  small: #000 0 1px 2px,
+  medium: #000 0 2px 3px,
+);
+
+
+/// Container's maximum width
+/// @type Length
+//$max-width: 1480px !default;
+$max-width: 1280px !default;
+
+
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to api given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'small': 320px,
+  'medium': 768px,
+  'large': 1024px,
+) !default;
+
+
+
+
+
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using api CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: '/assets/' !default;
