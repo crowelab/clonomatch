@@ -41,7 +41,7 @@ ClonoMatch works with both remote and local MongoDB servers
 #### 3b. Add data to MongoDB
 The name of the database and collection in the MongoDB server in which you are storing your sequences does not matter, however, you must put the database and collection information in the ClonoMatch configuration file in order for ClonoMatch to function correctly.
 
-Once you have your collection, you need to fill it. ClonoMatch is based on queries to the collection and expects certain information to be in the root of every document. The information needed is the donor, cdr3 amino acid string, & V, J, and D families ("family" in this case defined as the IMGT BLAST v/d/j call information BEFORE the '*' character -- e.g. the V-Family of IGHV3-13*01 would be IGHV3-13). The basic schema of each document in the collection looks like:
+Once you have your collection, you need to fill it. ClonoMatch is based on queries to the collection and expects certain information to be in the root of every document. The information needed is the donor, cdr3 amino acid string, & V, J, and D families ("family" in this case defined as the IMGT BLAST v/d/j call information BEFORE the '\*' character -- e.g. the V-Family of IGHV3-13\*01 would be IGHV3-13). The basic schema of each document in the collection looks like:
 
 ```
 {
@@ -55,8 +55,23 @@ Once you have your collection, you need to fill it. ClonoMatch is based on queri
 }
 ```
 
-You can rename these fields in your own database if you update the ClonoMatch Configuration file with information to find these values:
+An example document with this structure:
+```
+{ 
+      "_id" : ObjectId("5ea367dbd9d5251f9079426e"), 
+      "aa" : "KGSGYSFTSYWIGWVRQMPGKGLEWMGIIYPGDSDTRYSPSFQGQVTISADKSISTAYLQWSSLKASDTAMYYCARYYDFWSGYPHYYYGMDVWGQ",
+      "sequence_alignment" : "AAGGGTTCTGGATACAGCTTTACCAGCTACTGGATCGGCTGGGTGCGCCAGATGCCCGGGAAAGGCCTGGAGTGGATGGGGATCATCTATCCTGGTGACTCTGATACCAGATACAGCCCGTCCTTCCAAGGCCAGGTCACCATCTCAGCCGACAAGTCCATCAGCACCGCCTACCTGCAGTGGAGCAGCCTGAAGGCCTCGGACACCGCCATGTATTACTGTGCGAGATATTACGATTTTTGGAGTGGTTACCCCCACTACTACTACGGTATGGACGTCTGGGGCCAA",
+      "v" : "IGHV5-51",
+      "j" : "IGHJ6",
+      "d" : "IGHD3-3",
+      "cdr3" : "ARYYDFWSGYPHYYYGMDV",
+      "donor" : "hip1"
+}
+```
 
+Note that additional data can be stored in the database to go along with the required schema values, but the schema values must still be top-level in every document.
+
+You can rename these fields in your own database if you update the ClonoMatch Configuration file with information to find these values:
 ```
 database: {
   ...
@@ -66,7 +81,8 @@ database: {
       "d": "custom_d_value",
       "cdr3": "custom_cdr3_value",
       "donor": "custom_donor_value"
-    },
+      ...
+    }
 }
 ```
 
@@ -106,7 +122,7 @@ Specifically, we will be building a [compound index](https://docs.mongodb.com/ma
 db.public.createIndex({'v': 1, 'j': 1, 'cdr3': 1})
 ```
 
-If your document structure does not follow the default schema, replace the v, j, and cdr3 fields with what they correspond to in your database structure
+If your document structure does not follow the default schema, replace the v, j, and cdr3 fields with what they correspond to in your database structure.
 
 ### 4. Set up BLAST Databases and Clonotype Files
 In addition to exact V3J clonotype matching, ClonoMatch has capabilities for doing a "sibling" or "similar" search. The basis of this search is finding sequences that have identical V & J germline family assignments, but differ in one-to-few amino acids in the CDR3 region.
