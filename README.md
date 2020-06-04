@@ -36,9 +36,41 @@ ClonoMatch uses a MongoDB database for storing sequence data. The database calls
 
 Instructions for installing MongoDB on your machine can be found [in the official MongoDB documentation](https://docs.mongodb.com/manual/installation/)
 
-You can set up your MongoDB server locally or on another machine.
+ClonoMatch works with both remote and local MongoDB servers
 
-#### 3b. 
+#### 3b. Add data to MongoDB
+
+ClonoMatch is based on queries to the Mongo database and expects certain information to be in the root of every document. The information needed is the donor, cdr3 amino acid string, & V, J, and D families ("family" in this case defined as the IMGT BLAST v/d/j call information BEFORE the '*' character -- e.g. the V-Family of IGHV3-13*01 would be IGHV3-13). The basic schema of this information looks like:
+
+```
+{
+      "_id": ObjectID,
+      "v": String,
+      "j": String,
+      "d": String,
+      "cdr3": String,
+      "donor": "donor"
+      ...
+}
+```
+
+You can rename these fields in your own database if you update the ClonoMatch Configuration file with information to find these values:
+
+```
+database: {
+  ...
+  "schema": {
+      "v": "custom_v_value",
+      "j": "custom_j_value",
+      "d": "custom_d_value",
+      "cdr3": "custom_cdr3_value",
+      "donor": "custom_donor_value"
+    },
+}
+```
+
+#### 3c. Setup indicies
+
 
 ### 4. Set up BLAST Databases and Clonotype Files
 In addition to exact V3J clonotype matching, ClonoMatch has capabilities for doing a "sibling" or "similar" search. The basis of this search is finding sequences that have identical V & J germline family assignments, but differ in one-to-few amino acids in the CDR3 region.
