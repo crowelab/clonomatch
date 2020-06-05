@@ -129,6 +129,8 @@ In addition to exact V3J clonotype matching, ClonoMatch has capabilities for doi
 
 To perform this type of search quickly, we prime the data by creating folders on the node server's file system that correspond to each VJ-combination family with a BLAST database containing every CDR3 amino acid sequence in that family.
 
+#### 4a.
+
 ### 5. Set up configuration files
 
 ## Running in Development and Production Environments
