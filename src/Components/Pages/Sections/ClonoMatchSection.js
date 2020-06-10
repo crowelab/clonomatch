@@ -542,7 +542,7 @@ class ClonoMatchSection extends Component {
         } else if(this.state.searchType === SEARCH_TYPE.SIBLING) {
             for(let result of response.results) {
                 results.push({
-                    'donor': result['hip'],
+                    'donor': result['donor'],
                     'v': response['v'],
                     'd': result['d'],
                     'j': response['j'],
