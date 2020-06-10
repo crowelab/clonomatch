@@ -33,6 +33,145 @@ const cdr3Style = {
 
 
 let v_families = [
+    {label: 'IGHV1-2', value: 'IGHV1-2', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-3', value: 'IGHV1-3', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-8', value: 'IGHV1-8', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-18', value: 'IGHV1-18', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-24', value: 'IGHV1-24', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-38-4', value: 'IGHV1-38-4', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-45', value: 'IGHV1-45', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-46', value: 'IGHV1-46', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-58', value: 'IGHV1-58', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-68', value: 'IGHV1-68', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-69', value: 'IGHV1-69', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV1-69-2', value: 'IGHV1-69-2', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV2-5', value: 'IGHV2-5', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV2-10', value: 'IGHV2-10', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV2-26', value: 'IGHV2-26', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV2-70', value: 'IGHV2-70', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV2-70D', value: 'IGHV2-70D', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-7', value: 'IGHV3-7', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-9', value: 'IGHV3-9', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-11', value: 'IGHV3-11', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-13', value: 'IGHV3-13', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-15', value: 'IGHV3-15', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-16', value: 'IGHV3-16', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-19', value: 'IGHV3-19', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-20', value: 'IGHV3-20', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-21', value: 'IGHV3-21', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-22', value: 'IGHV3-22', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-23', value: 'IGHV3-23', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-23D', value: 'IGHV3-23D', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-25', value: 'IGHV3-25', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-30', value: 'IGHV3-30', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-30-3', value: 'IGHV3-30-3', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-30-5', value: 'IGHV3-30-5', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-33', value: 'IGHV3-33', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-35', value: 'IGHV3-35', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-38', value: 'IGHV3-38', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-38-3', value: 'IGHV3-38-3', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-43', value: 'IGHV3-43', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-43D', value: 'IGHV3-43D', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-47', value: 'IGHV3-47', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-48', value: 'IGHV3-48', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-49', value: 'IGHV3-49', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-52', value: 'IGHV3-52', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-53', value: 'IGHV3-53', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-62', value: 'IGHV3-62', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-64', value: 'IGHV3-64', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-64D', value: 'IGHV3-64D', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-66', value: 'IGHV3-66', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-69-1', value: 'IGHV3-69-1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-71', value: 'IGHV3-71', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-72', value: 'IGHV3-72', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-73', value: 'IGHV3-73', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV3-74', value: 'IGHV3-74', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-4', value: 'IGHV4-4', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-28', value: 'IGHV4-28', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-30-2', value: 'IGHV4-30-2', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-30-4', value: 'IGHV4-30-4', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-31', value: 'IGHV4-31', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-34', value: 'IGHV4-34', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-38-2', value: 'IGHV4-38-2', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-39', value: 'IGHV4-39', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-55', value: 'IGHV4-55', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-59', value: 'IGHV4-59', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV4-61', value: 'IGHV4-61', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV5-10-1', value: 'IGHV5-10-1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV5-51', value: 'IGHV5-51', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV5-78', value: 'IGHV5-78', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV6-1', value: 'IGHV6-1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV7-4-1', value: 'IGHV7-4-1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV7-34-1', value: 'IGHV7-34-1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV7-40', value: 'IGHV7-40', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHV7-81', value: 'IGHV7-81', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGKV1-5', value: 'IGKV1-5', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-6', value: 'IGKV1-6', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-8', value: 'IGKV1-8', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-9', value: 'IGKV1-9', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-12', value: 'IGKV1-12', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-13', value: 'IGKV1-13', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-16', value: 'IGKV1-16', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-17', value: 'IGKV1-17', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-27', value: 'IGKV1-27', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-33', value: 'IGKV1-33', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-37', value: 'IGKV1-37', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV1-39', value: 'IGKV1-39', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-4', value: 'IGKV2-4', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-18', value: 'IGKV2-18', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-24', value: 'IGKV2-24', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-28', value: 'IGKV2-28', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-29', value: 'IGKV2-29', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-30', value: 'IGKV2-30', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV2-40', value: 'IGKV2-40', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV3-7', value: 'IGKV3-7', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV3-11', value: 'IGKV3-11', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV3-15', value: 'IGKV3-15', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV3-20', value: 'IGKV3-20', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV4-1', value: 'IGKV4-1', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV5-2', value: 'IGKV5-2', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV6-21', value: 'IGKV6-21', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKV7-3', value: 'IGKV7-3', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGLV1-36', value: 'IGLV1-36', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-40', value: 'IGLV1-40', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-41', value: 'IGLV1-41', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-44', value: 'IGLV1-44', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-47', value: 'IGLV1-47', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-50', value: 'IGLV1-50', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV1-51', value: 'IGLV1-51', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-5', value: 'IGLV2-5', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-8', value: 'IGLV2-8', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-11', value: 'IGLV2-11', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-14', value: 'IGLV2-14', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-18', value: 'IGLV2-18', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-23', value: 'IGLV2-23', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV2-33', value: 'IGLV2-33', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-1', value: 'IGLV3-1', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-9', value: 'IGLV3-9', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-10', value: 'IGLV3-10', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-12', value: 'IGLV3-12', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-13', value: 'IGLV3-13', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-16', value: 'IGLV3-16', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-19', value: 'IGLV3-19', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-21', value: 'IGLV3-21', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-22', value: 'IGLV3-22', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-25', value: 'IGLV3-25', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-27', value: 'IGLV3-27', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV3-31', value: 'IGLV3-31', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV4-3', value: 'IGLV4-3', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV4-60', value: 'IGLV4-60', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV4-69', value: 'IGLV4-69', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV5-37', value: 'IGLV5-37', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV5-39', value: 'IGLV5-39', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV5-45', value: 'IGLV5-45', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV5-48', value: 'IGLV5-48', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV5-52', value: 'IGLV5-52', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV6-57', value: 'IGLV6-57', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV7-43', value: 'IGLV7-43', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV7-46', value: 'IGLV7-46', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV8-61', value: 'IGLV8-61', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV9-49', value: 'IGLV9-49', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLV10-54', value: 'IGLV10-54', type: CHAIN_TYPE.BCELL_LIGHT_L},
     {label: 'TRAV1-1', value: 'TRAV1-1', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV1-2', value: 'TRAV1-2', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV2', value: 'TRAV2', type: CHAIN_TYPE.TCELL_ALPHA},
@@ -73,7 +212,7 @@ let v_families = [
     {label: 'TRAV39', value: 'TRAV39', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV40', value: 'TRAV40', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV41', value: 'TRAV41', type: CHAIN_TYPE.TCELL_ALPHA},
-    {label: 'TRAV29/DV5', value: 'TRAV29/DV5', type: CHAIN_TYPE.TCELLs_ALPHA},
+    {label: 'TRAV29/DV5', value: 'TRAV29/DV5', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRBV1', value: 'TRBV1', type: CHAIN_TYPE.TCELL_BETA},
     {label: 'TRBV2', value: 'TRBV2', type: CHAIN_TYPE.TCELL_BETA},
     {label: 'TRBV3-1', value: 'TRBV3-1', type: CHAIN_TYPE.TCELL_BETA},
@@ -140,6 +279,24 @@ let v_families = [
     {label: 'TRBV29/OR9-2', value: 'TRBV29/OR9-2', type: CHAIN_TYPE.TCELL_BETA},
 ];
 let j_families = [
+    {label: 'IGHJ1', value: 'IGHJ1', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHJ2', value: 'IGHJ2', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHJ3', value: 'IGHJ3', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHJ4', value: 'IGHJ4', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHJ5', value: 'IGHJ5', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGHJ6', value: 'IGHJ6', type: CHAIN_TYPE.BCELL_HEAVY},
+    {label: 'IGKJ1', value: 'IGKJ1', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKJ2', value: 'IGKJ2', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKJ3', value: 'IGKJ3', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKJ4', value: 'IGKJ4', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGKJ5', value: 'IGKJ5', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    {label: 'IGLJ1', value: 'IGLJ1', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ2', value: 'IGLJ2', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ3', value: 'IGLJ3', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ4', value: 'IGLJ4', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ5', value: 'IGLJ5', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ6', value: 'IGLJ6', type: CHAIN_TYPE.BCELL_LIGHT_L},
+    {label: 'IGLJ7', value: 'IGLJ7', type: CHAIN_TYPE.BCELL_LIGHT_L},
     {label: 'TRBJ1-1', value: 'TRBJ1-1', type: CHAIN_TYPE.TCELL_BETA},
     {label: 'TRBJ1-2', value: 'TRBJ1-2', type: CHAIN_TYPE.TCELL_BETA},
     {label: 'TRBJ1-3', value: 'TRBJ1-3', type: CHAIN_TYPE.TCELL_BETA},
@@ -374,7 +531,7 @@ class ClonoMatchSection extends Component {
         if(this.state.searchType === SEARCH_TYPE.MATCH) {
             for(let result of response.results) {
                 results.push({
-                    'donor': result['_id']['hip'],
+                    'donor': result['_id']['donor'],
                     'v': result['_id']['v'],
                     'd': result['_id']['d'],
                     'j': result['_id']['j'],
@@ -430,7 +587,7 @@ class ClonoMatchSection extends Component {
         }, () => {
             let data = this.state;
 
-            fetch(BaseURL + 'api/clonomatch/', {
+            fetch(BaseURL + '/api/clonomatch/', {
                 method: 'POST',
                 cors: 'no-cors',
                 body: JSON.stringify(data)
@@ -449,7 +606,7 @@ class ClonoMatchSection extends Component {
         }, () => {
             let data = this.state;
 
-            fetch(BaseURL + 'api/clonomatch/sibling', {
+            fetch(BaseURL + '/api/clonomatch/sibling', {
                 method: 'POST',
                 cors: 'no-cors',
                 body: JSON.stringify(data)
@@ -466,7 +623,8 @@ class ClonoMatchSection extends Component {
             processStatus: PROCESS_STATUS.RUNNING,
             searchType: SEARCH_TYPE.MATCH
         }, () => {
-            fetch(BaseURL + 'api/clonomatch/random', {
+            console.log("BaseURL:", BaseURL);
+            fetch(BaseURL + '/api/clonomatch/random', {
                 method: 'POST'
             }).then(response => {
                 if(response.status === 200) {
@@ -491,12 +649,12 @@ class ClonoMatchSection extends Component {
         let data = {};
         data.rows = this.state.results;
 
-        fetch(BaseURL + 'api/clonomatch/csv', {
+        fetch(BaseURL + '/api/clonomatch/csv', {
             method: 'POST',
             cors: 'no-cors',
             body: JSON.stringify(data)
         }).then(response=>response.json()).then((response) => {
-            window.open(BaseURL + 'api/clonomatch/csv/' + response.filename);
+            window.open(BaseURL + '/api/clonomatch/csv/' + response.filename);
         });
     };
 

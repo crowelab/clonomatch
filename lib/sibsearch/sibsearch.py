@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-
 import argparse
 import os
 from os import path
 import json
 import sys
 import subprocess
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
 # from SibSearch.mongo import MongoWrapper
 #from SibSearch.runners import BlastRunner
-QUERY_DIR = '../generated_data'
-DB_DIR = 'lib/sibsearch/dbs'
+# QUERY_DIR = '../generated_data'
+# DB_DIR = 'lib/sibsearch/dbs'
 
-db = None
-collection = None
+# db = None
+# collection = None
+
+BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..','..')
+config = {}
+with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
+  config = json.load(fin)
 
 parser = argparse.ArgumentParser(
     description='This program creates a variety of statistics and graphs based on a given database run and sample')
@@ -23,32 +27,21 @@ sequence_args.add_argument('-v', dest='v', required=True)
 sequence_args.add_argument('-j', dest='j', required=True)
 sequence_args.add_argument('--cdr3', required=True)
 sequence_args.add_argument('--dir', required=True)
+# sequence_args.add_argument('--dir', required=True)
 args = parser.parse_args()
-
-db_col = None
-try:
-    client = MongoClient(port=37200)
-    db_col = client['sequences']['hip']
-except Exception as e:
-    print('Error setting up Mongo',e)
-    sys.exit()
-
-if not db_col:
-    print('Could not establish connection')
-    sys.exit()
 
 vj = args.v.replace('/','') + '_' + args.j
 queryfile = path.join(args.dir, 'query.fasta')
 resultsfile = path.join(args.dir, 'results.csv')
 outfile = path.join(args.dir, 'filtered.json')
-print("Running!!", vj, queryfile, resultsfile, outfile);
+# print("Running!!", vj, queryfile, resultsfile, outfile)
 # print("Writing")
 with open(queryfile, 'w') as fout:
     fout.write('>Sequence\n' + args.cdr3 + '\n')
 
-subprocess.call(['blastp',
+subprocess.call([config['app']['sibsearch']['blastp'],
                          '-query', queryfile,
-                         '-db', path.join(DB_DIR,vj,'cdr3'),
+                         '-db', path.join(config['app']['sibsearch']['db_dir'],vj,'cdr3'),
                          '-word_size', '3',
                          '-gapopen', '7',
                          '-gapextend', '2',
@@ -64,7 +57,7 @@ with open(resultsfile, 'r') as fin:
         if (float(ls[THRESHOLD_INDEX]) + float(ls[COVERAGE_INDEX])) >= 170.00:
             hip, d, count, _ = ls[1].split('_')
             out.append({
-                'hip': hip,
+                'donor': hip,
                 'd': d,
                 'count': count,
                 'og_cdr3': ls[QUERY_INDEX],

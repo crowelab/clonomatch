@@ -33,12 +33,12 @@
     "why-did-you-update": "^1.0.6"
   },
   "scripts": {
-    "start": "REACT_APP_PYIR_ENV=development react-scripts start",
-    "build": "REACT_APP_PYIR_ENV=production react-scripts build",
-    "stage": "REACT_APP_PYIR_ENV=staging react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "prod-server": "NODE_ENV=production node ./bin/www"
+    "start": "react-scripts start",
+    "local": "python3 ./bin/local.py",
+    "build": "python3 ./bin/build.py",
+    "setup": "python3 ./bin/setup.py",
+    "deploy": "NODE_ENV=production node ./bin/www",
+    "sass": "sass stylesheets/main.scss public/style.css"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",

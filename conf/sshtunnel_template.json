@@ -1,8 +1,0 @@
-{
-      "username": "username",
-      "host": "host",
-      "port": 22,
-      "dstPort": 12345,
-      "password": "password",
-      "keepAlive": true
-}

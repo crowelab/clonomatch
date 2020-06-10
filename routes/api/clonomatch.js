@@ -4,39 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const MongoWrapper = require('../../lib/MongoWrapper');
 const { execSync, spawn } = require('child_process');
-const { StringDecoder } = require('string_decoder');
-const decoder = new StringDecoder('utf8');
-
-/* Some constants to save us some CPU cycles. Whenever database gets updated, the info.csv file
- * will need to be updated and these values will need to be updated too */
-const MAX_INFO_FILE = 1173;
-const NUM_LINES_PER_FILE = 50000;
-
-const DATA_FOLDER = 'generated_data';
-const SIBSEARCH_EXECUTABLE = 'lib/sibsearch/sibsearch.py';
-
-const getRandomV3J = function() {
-    let file_num = Math.floor(Math.random()*MAX_INFO_FILE);
-    let line_num = Math.floor(Math.random()*NUM_LINES_PER_FILE);
-
-    let v3jsplit = execSync('sed \'' + String(line_num) + 'q;d\' lib/clonotypeinfo/info_' + String(file_num) + '.csv')
-        .toString().split(',');
-
-    return {
-        v: v3jsplit[0],
-        j: v3jsplit[1],
-        cdr3: v3jsplit[2],
-    }
-};
-
-//
-// const runSibsearch = (v, j, cdr3, dir) => {
-//     // const execString = 'python3 ' + SIBSEARCH_EXECUTABLE;
-//     //
-//     // // console.log("running Sibsearch:", execString, parameters.concat([filename]));
-//
-//     return spawn('python3', [SIBSEARCH_EXECUTABLE, '-v', v, '-j', j, '--cdr3', cdr3, '--dir', dir]);
-// };
+// const { StringDecoder } = require('string_decoder');
+// const decoder = new StringDecoder('utf8');
+const config = require("../../conf/clonomatch");
 
 let createCSVOutput = (rows) => {
     let retval = '';
@@ -81,14 +51,16 @@ router.post('/sibling', function(req, res) {
     let body = JSON.parse(req.body);
 
     let name = String(new Date().getTime());
-    let dir = path.join(DATA_FOLDER,name);
+    let dir = path.join(config.app.data_dir, name);
     fs.mkdir(dir, (err) => {
         if(err) {
             console.error("Couldn't create:", dir);
             res.send(500);
         }
-        let args = [SIBSEARCH_EXECUTABLE, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3, '--dir', dir];
-        spawn('python3', [SIBSEARCH_EXECUTABLE, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3, '--dir', dir]).on('exit', (code) => {
+
+        //You'll thank me later if you want to debug sibsearch
+        let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3, '--dir', dir];
+        spawn('python3', args).on('exit', (code) => {
             if(code === 0) {
                 let results = require(path.join(process.cwd(), dir, 'filtered.json'));
                 res.json({
@@ -105,19 +77,41 @@ router.post('/sibling', function(req, res) {
 });
 
 router.post('/random', function(req, res) {
-    let v3j = getRandomV3J();
+    fs.readdir(config.app.clonotypes.dir, (err, files) => {
+        if(!err) {
+            let file = files[Math.floor(Math.random()*files.length)];
+            let line_num = Math.floor(Math.random()*parseInt(config.app.clonotypes.lines_per_file));
 
-    MongoWrapper.getV3JMatches(v3j.v, v3j.j, v3j.cdr3, (err, results) => {
-        if(err) {
-            console.error("Error getting Random V3J Match:", err);
-            res.send(500);
-        } else {
-            res.json({
-                v: v3j.v,
-                j: v3j.j,
-                cdr3: v3j.cdr3,
-                results: results
+            let line = execSync('sed \'' + String(line_num) + 'q;d\' ' + path.join(config.app.clonotypes.dir, file))
+                .toString();
+
+            /*
+                If line is empty repeat until found
+             */
+            while(!line.includes(',')) {
+                file = files[Math.floor(Math.random()*files.length)];
+                line_num = Math.floor(Math.random()*parseInt(config.app.clonotypes.lines_per_file));
+                line = execSync('sed \'' + String(line_num) + 'q;d\' ' + path.join(config.app.clonotypes.dir, file))
+                    .toString();
+            }
+
+            let ls = line.trim().split(',');
+            MongoWrapper.getV3JMatches(ls[0], ls[1], ls[2], (err, results) => {
+                if(err) {
+                    console.error("Error getting Random V3J Match:", err);
+                    res.send(500);
+                } else {
+                    res.json({
+                        v: ls[0],
+                        j: ls[1],
+                        cdr3: ls[2],
+                        results: results
+                    });
+                }
             });
+        } else {
+            console.error("random clonotype failed -- no random v3j returned");
+            res.send(500);
         }
     });
 });
@@ -126,7 +120,7 @@ router.post('/csv', function(req, res) {
     let body = JSON.parse(req.body);
 
     let filename = new Date().getTime() + ".csv";
-    let filepath = path.join(DATA_FOLDER,filename);
+    let filepath = path.join(config.app.data_dir,filename);
     let content = createCSVOutput(body.rows);
 
     fs.writeFile(filepath, content, 'utf8', (err) => {
@@ -140,7 +134,7 @@ router.post('/csv', function(req, res) {
 });
 
 router.get('/csv/:filename', function(req, res) {
-    let filename = path.join(DATA_FOLDER, req.params.filename);
+    let filename = path.join(config.app.data_dir, req.params.filename);
 
     if(fs.existsSync(filename)) {
         res.download(filename, function(err) {
