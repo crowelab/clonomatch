@@ -34,9 +34,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "local": "python3 ./bin/local.py",
-    "build": "python3 ./bin/build.py",
-    "setup": "python3 ./bin/setup.py",
+    "local": "python3 ./bin/local.py --config conf/clonomatch.json",
+    "build": "python3 ./bin/build.py --config conf/clonomatch.json",
+    "setup": "python3 ./bin/setup.py --config conf/clonomatch.json",
     "deploy": "NODE_ENV=production node ./bin/www",
     "sass": "sass stylesheets/main.scss public/style.css"
   },

@@ -16,8 +16,7 @@
 /public/pyirfiles
 
 #private data
-/conf/sshtunnel.json
-/conf/clonomatch.json
+/conf/clonomatch_sam.json
 
 # misc
 .DS_Store

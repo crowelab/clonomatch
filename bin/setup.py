@@ -5,12 +5,19 @@ import os
 import subprocess
 from os import path
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--config', help='Configuration file')
+args = parser.parse_args()
 print("Loading config file")
 
-BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..')
 config = {}
-with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
-  config = json.load(fin)
+if args.config and args.config != '':
+  with open(args.config) as fin:
+    config = json.load(fin)
+else:
+  BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..')
+  with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
+    config = json.load(fin)
 
 print("config file loaded")
 try:
