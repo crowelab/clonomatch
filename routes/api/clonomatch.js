@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const MongoWrapper = require('../../lib/MongoWrapper');
 const { execSync, spawn } = require('child_process');
-// const { StringDecoder } = require('string_decoder');
-// const decoder = new StringDecoder('utf8');
 const config = require("../../conf/clonomatch");
 
 let createCSVOutput = (rows) => {

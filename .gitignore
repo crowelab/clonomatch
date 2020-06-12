@@ -1,22 +1,18 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+#Ignore the basics
+build/
+node_modules/
+.sass-cache/
 
-# testing
-/coverage
-
-# production
-/build
-
-#user uploads
-/uploads
-/generated_data
+#Personal folders for clonotypes and data. Put your own setup here!
+/lib/clonotypes
 /lib/sibsearch/dbs/
-/public/pyirfiles
+/generated_data
 
-#private data
-/conf/clonomatch_sam.json
+#Can put multiple configurations in conf folder, or comment out !/conf/clonomatch.json
+/conf/*
+!/conf/clonomatch.json
 
 # misc
 .DS_Store

@@ -1,0 +1,42 @@
+{
+  "app": {
+    "clonotypes": {
+      "dir": "lib/clonotypes",
+      "lines_per_file": 50000
+    },
+    "data_dir": "generated_data",
+    "sibsearch": {
+      "db_dir": "lib/sibsearch/dbs",
+      "executable": "lib/sibsearch/sibsearch.py",
+      "blastp": "lib/sibsearch/bin/blastp",
+      "makeblastdb": "lib/sibsearch/bin/makeblastdb"
+    },
+    "url": {
+      "development": "http://localhost:8888",
+      "production": "http://localhost:3000"
+    }
+  },
+  "database": {
+    "mongo_url": "mongodb://127.0.0.1/",
+    "mongo_collection": "public",
+    "mongo_database": "sequences",
+    "schema": {
+      "v": "v",
+      "j": "j",
+      "d": "d",
+      "cdr3": "cdr3",
+      "donor": "donor"
+    }
+  },
+  "sshtunnel": {
+    "development": {
+      "username": "username",
+      "host": "hostname.ip.address",
+      "port": 22,
+      "dstPort": 27017,
+      "password": "password",
+      "keepAlive": true
+    },
+    "production": {}
+  }
+}

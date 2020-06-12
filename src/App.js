@@ -7,10 +7,6 @@ import {ToastContainer,Zoom} from "react-toastify";
 class App extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-
-        }
     }
 
   render() {
