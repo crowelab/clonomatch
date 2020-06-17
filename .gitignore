@@ -12,7 +12,7 @@ node_modules/
 
 #Can put multiple configurations in conf folder, or comment out !/conf/clonomatch.json
 /conf/*
-#!/conf/clonomatch.json
+!/conf/clonomatch.json
 
 # misc
 .DS_Store
