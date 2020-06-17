@@ -87,9 +87,9 @@ database: {
 ```
 
 #### 3c. Setup indicies
-##### NOTE: This task can be very time consuming depending on the amount of data in the database. Don't be surprised if it takes 30 minutes or more
+##### NOTE: This task can be very time consuming depending on the amount of data in the database. Don't be surprised if it takes 15 minutes or more for each index
 
-In order for ClonoMatch to conduct its clonotype matching quickly, building an index on the V3J clonotype is essential. The easiest way to do this is to log into your mongo database and run the [db.collection.createIndex()](https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/) command from the shell -- it will look like nothing is happening when you run the command, but if you have access to your MongoDB server logs you can check the progress of creating the index. 
+In order for ClonoMatch to conduct its clonotype and CDR3 matching quickly, building indexes on the V3J clonotype and CDR3 is essential. The easiest way to do this is to log into your mongo database and run the [db.collection.createIndex()](https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/) command from the shell -- it will look like nothing is happening when you run the command, but if you have access to your MongoDB server logs you can check the progress of creating the index. 
 
 ###### 3c.i. Log into MongoDB
 Start by logging into mongo as you would normally:
@@ -117,21 +117,74 @@ When you create an index you create it on a specific collection in a database, s
 db.collection_name.createIndex(...)
 ```
 
-Specifically, we will be building a [compound index](https://docs.mongodb.com/manual/core/index-compound/) of the v, j and cdr3 fields, so the ordering of the fields is important: v, then j, then cdr3. If using the ClonoMatch configuration template schema this call would be:
+The first index we need to build is the CDR3 index, the command for which is:
+```
+db.public.createIndex({'cdr3': 1})
+```
+
+For the second index, we will be building a [compound index](https://docs.mongodb.com/manual/core/index-compound/) of the v, j and cdr3 fields, so the ordering of the fields is important: v, then j, then cdr3. If using the ClonoMatch configuration template schema this call would be:
 ```
 db.public.createIndex({'v': 1, 'j': 1, 'cdr3': 1})
 ```
 
 If your document structure does not follow the default schema, replace the v, j, and cdr3 fields with what they correspond to in your database structure.
 
-### 4. Set up BLAST Databases and Clonotype Files
-In addition to exact V3J clonotype matching, ClonoMatch has capabilities for doing a "sibling" or "similar" search. The basis of this search is finding sequences that have identical V & J germline family assignments, but differ in one-to-few amino acids in the CDR3 region.
+### 4. Set up configuration file
+Once the preliminary work is done, you will need to setup the conf/clonomatch.json file to match your MongoDB and local file settings.
 
-To perform this type of search quickly, we prime the data by creating folders on the node server's file system that correspond to each VJ-combination family with a BLAST database containing every CDR3 amino acid sequence in that family.
+An example file is included which appears as follows:
+```
+{
+  "app": {
+    "clonotypes": {
+      "dir": "lib/clonotypes", #Directory where clonotype files are stored
+      "lines_per_file": 50000 #Number of lines per clonotype file
+    },
+    "data_dir": "generated_data", #Directory for CSV downloads
+    "sibsearch": {
+      "db_dir": "lib/sibsearch/dbs", #Directory for VJ folders with BLAST databases to be made
+      "executable": "lib/sibsearch/sibsearch.py", #Location of the similar script
+      "blastp": "lib/sibsearch/bin/blastp", #Location of the blastp executable used to perform similar search
+      "makeblastdb": "lib/sibsearch/bin/makeblastdb" #Location of the makeblastdb executable used to create the BLAST databases
+    },
+    "url": {
+      "development": "http://localhost:8888", #Location of the development backend server
+      "production": "http://localhost:3000" #Location of the production server
+    }
+  },
+  "database": {
+    "mongo_url": "mongodb://127.0.0.1/", #Location of the MongoDB with the sequence data
+    "mongo_collection": "public", #Collection name for the sequence data in Mongo
+    "mongo_database": "sequences", #Database name for the sequence data in Mongo
+    "schema": {
+      "v": "v", #V Family name in the MongoDB schema
+      "j": "j", #J Family name in the MongoDB schema
+      "d": "d", #D Family name in the MongoDB schema
+      "cdr3": "cdr3", #CDR3 Amino Acid name in the MongoDB schema
+      "donor": "donor" #Donor name in the MongoDB schema
+    }
+  },
+  "sshtunnel": { #OPTIONAL SETTINGS -- use only you if need to SSH tunnel to your MongoDB instance. These are settings for the ssh-tunnel library found under npm
+    "development": {
+      "username": "username", #Login username of server to which you are tunneling
+      "host": "hostname.ip.address", #Hostname of server to which you are tunneling
+      "port": 22, #Port of server to which you are tunneling
+      "dstPort": 27017, #Port of MongoDB on server to which you are tunneling
+      "password": "password", #Password of server to which you are tunneling
+      "keepAlive": true #Leave open while ClonoMatch is running
+    },
+    "production": {}
+  }
+}
+```
 
-#### 4a.
+### 5. Run setup scripts
+Included with ClonoMatch are scripts to ease the setup process
 
-### 5. Set up configuration files
+```
+npm run setup
+npm run build
+```
 
 ## Running in Development and Production Environments
 
