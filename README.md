@@ -178,19 +178,19 @@ An example file is included which appears as follows:
 }
 ```
 
-### 5. Run setup scripts
-Included with ClonoMatch are scripts to ease the setup process
+### 5. Run setup script
+##### NOTE: This process can take a very VERY long time. Our database of over 800 million sequences took over 6 hours to run
+Included with ClonoMatch is a script to build the clonotype files and BLAST databases automatically, based on the configuration in the conf/clonomatch.json file. The script is ran with the command
 
 ```
 npm run setup
-npm run build
 ```
 
-## Running in Development and Production Environments
+### 6. Running in Development and Production Environments
 
-### Development
+#### Development
 
-### Production
+#### Production
 
 
 
