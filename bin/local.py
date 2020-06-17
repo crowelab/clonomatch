@@ -7,13 +7,11 @@ import sys
 import argparse
 from os import path
 
-def run_node(config):
+def run_node(config_path):
   print("Running local dev server")
-  p = subprocess.Popen('NODE_ENV=development node bin/www', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+  p = subprocess.Popen('NODE_ENV=development CONF=' + config_path + ' node bin/www', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
   for line in p.stdout:
     print("node -- ", line.strip().decode('utf-8'))
-
-    # subprocess.Popen(['node', 'bin/www'])
 
 def run_react(config):
   print("Running react-scripts start")
@@ -21,26 +19,19 @@ def run_react(config):
   for line in p.stdout:
     print("react -- ", line.strip().decode('utf-8'))
 
-
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument('--config', help='Configuration file')
   args = parser.parse_args()
   print("Loading config file")
 
+  config_path = args.config if args.config and args.config != '' else path.join(path.dirname(path.realpath(__file__)),'..','conf','clonomatch.json')
   config = {}
-  if args.config and args.config != '':
-    with open(args.config) as fin:
-          config = json.load(fin)
-  else:
-    BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..')
-    with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
-      config = json.load(fin)
+  with open(config_path) as fin:
+    config = json.load(fin)
 
   print("Setting up multiprocessing")
-#   node = multiprocessing.Process(target=run_node, args=(config,))
-  node = multiprocessing.Process(target=run_node, args=(config,))
-#   react = multiprocessing.Process(target=run_react, args=(config,))
+  node = multiprocessing.Process(target=run_node, args=(config_path,))
   react = multiprocessing.Process(target=run_react, args=(config,))
 
   print("Setting up SIGTERM handler")

@@ -27,6 +27,8 @@ sequence_args.add_argument('-v', dest='v', required=True)
 sequence_args.add_argument('-j', dest='j', required=True)
 sequence_args.add_argument('--cdr3', required=True)
 sequence_args.add_argument('--dir', required=True)
+sequence_args.add_argument('--pid', type=float)
+sequence_args.add_argument('--coverage', type=float)
 # sequence_args.add_argument('--dir', required=True)
 args = parser.parse_args()
 
@@ -34,8 +36,6 @@ vj = args.v.replace('/','') + '_' + args.j
 queryfile = path.join(args.dir, 'query.fasta')
 resultsfile = path.join(args.dir, 'results.csv')
 outfile = path.join(args.dir, 'filtered.json')
-# print("Running!!", vj, queryfile, resultsfile, outfile)
-# print("Writing")
 with open(queryfile, 'w') as fout:
     fout.write('>Sequence\n' + args.cdr3 + '\n')
 
@@ -54,7 +54,7 @@ out = []
 with open(resultsfile, 'r') as fin:
     for line in fin:
         ls = line.strip().split(',')
-        if (float(ls[THRESHOLD_INDEX]) + float(ls[COVERAGE_INDEX])) >= 170.00:
+        if float(ls[THRESHOLD_INDEX]) >= args.pid and float(ls[COVERAGE_INDEX]) >= args.coverage:
             hip, d, count, _ = ls[1].split('_')
             out.append({
                 'donor': hip,

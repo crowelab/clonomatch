@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Option, {OPTION_TYPES} from "../../Options/Option";
 import BaseURL from '../../../Library/BaseURL';
 import { BarLoader } from 'react-spinners';
 import {CSSTransition} from "react-transition-group";
 import ResultsTable from "../../Results/ResultsTable";
 import { toast } from 'react-toastify';
+import Switch from "rc-switch";
+
 
 const CHAIN_TYPE = {
     BCELL_HEAVY: 'bcell_heavy',
@@ -29,6 +31,12 @@ const cdr3Style = {
     border: '1px solid #ccc',
     textTransform: 'uppercase',
     margin: '8px 4px'
+};
+const similarStyle = {
+    padding: '8px',
+    border: '1px solid #ccc',
+    maxWidth: '100px',
+    margin: '8px 4px',
 };
 
 
@@ -473,49 +481,50 @@ class ClonoMatchSection extends Component {
         this.state = {
             v: '',
             j: '',
-            cdr3_aa: '',
+            cdr3: '',
             chainType: '',
             processStatus: PROCESS_STATUS.INIT,
             searchType: SEARCH_TYPE.MATCH,
-            results: '',
+            results_match: [],
+            results_sib: [],
             results_v: '',
             results_j: '',
             results_cdr3: '',
+            results_sib_v: '',
+            results_sib_j: '',
+            results_sib_cdr3: '',
+            results_match_v: '',
+            results_match_j: '',
+            results_match_cdr3: '',
+            pid: 50,
+            coverage: 90,
             cancelled: false
         }
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
     }
 
     onUpdateOptions = (alias, option) => {
         let stateChange = {};
 
-        if(['v', 'j'].includes(alias)) {
-            if(option == null || Array.isArray(option)) {
+        if (['v', 'j'].includes(alias)) {
+            if (option == null || Array.isArray(option)) {
                 stateChange[alias] = '';
 
-                if((alias === 'v' && this.state.j === '') ||
+                if ((alias === 'v' && this.state.j === '') ||
                     (alias === 'j' && this.state.v === '')) {
                     stateChange['chainType'] = CHAIN_TYPE.NONE;
                 }
             } else {
                 stateChange[alias] = option.value;
 
-                if(option.value.includes('IGH')) {
+                if (option.value.includes('IGH')) {
                     stateChange['chainType'] = CHAIN_TYPE.BCELL_HEAVY;
-                } else if(option.value.includes('IGK')) {
+                } else if (option.value.includes('IGK')) {
                     stateChange['chainType'] = CHAIN_TYPE.BCELL_LIGHT_K;
-                } else if(option.value.includes('IGL')) {
+                } else if (option.value.includes('IGL')) {
                     stateChange['chainType'] = CHAIN_TYPE.BCELL_LIGHT_L;
-                } else if(option.value.includes('TRA')) {
+                } else if (option.value.includes('TRA')) {
                     stateChange['chainType'] = CHAIN_TYPE.TCELL_ALPHA;
-                } else if(option.value.includes('TRB')) {
+                } else if (option.value.includes('TRB')) {
                     stateChange['chainType'] = CHAIN_TYPE.TCELL_BETA;
                 }
             }
@@ -528,8 +537,8 @@ class ClonoMatchSection extends Component {
 
     handleResults = (response) => {
         let results = [];
-        if(this.state.searchType === SEARCH_TYPE.MATCH) {
-            for(let result of response.results) {
+        if (this.state.searchType === SEARCH_TYPE.MATCH) {
+            for (let result of response.results) {
                 results.push({
                     'donor': result['_id']['donor'],
                     'v': result['_id']['v'],
@@ -539,8 +548,8 @@ class ClonoMatchSection extends Component {
                     'count': result['count']
                 });
             }
-        } else if(this.state.searchType === SEARCH_TYPE.SIBLING) {
-            for(let result of response.results) {
+        } else if (this.state.searchType === SEARCH_TYPE.SIBLING) {
+            for (let result of response.results) {
                 results.push({
                     'donor': result['donor'],
                     'v': response['v'],
@@ -563,25 +572,36 @@ class ClonoMatchSection extends Component {
             type: toast.TYPE.WARNING
         });
 
-        if(results.length > 0) {
-            this.setState({
+        let newState;
+        if (results.length > 0) {
+            newState = {
                 processStatus: PROCESS_STATUS.SUCCESS,
-                results: results,
-                results_v: response.v,
-                results_j: response.j,
-                results_cdr3: response.cdr3,
-            });
+                // results_v: response.v,
+                // results_j: response.j,
+                // results_cdr3: response.cdr3,
+            };
         } else {
-            this.setState({
-                processStatus: PROCESS_STATUS.INIT,
-                results: [],
-            });
+            newState = { processStatus: PROCESS_STATUS.INIT }
         }
+
+        if(this.state.searchType === SEARCH_TYPE.SIBLING) {
+            newState.results_sib = results;
+            newState.results_sib_v = response.v;
+            newState.results_sib_j = response.j;
+            newState.results_sib_cdr3 = response.cdr3;
+        } else {
+            newState.results_match = results;
+            newState.results_match_v = response.v;
+            newState.results_match_j = response.j;
+            newState.results_match_cdr3 = response.cdr3;
+        }
+
+        this.setState(newState);
     };
 
     findMatches = () => {
         this.setState({
-            results: [],
+            results_match: [],
             processStatus: PROCESS_STATUS.RUNNING,
             searchType: SEARCH_TYPE.MATCH
         }, () => {
@@ -600,7 +620,7 @@ class ClonoMatchSection extends Component {
 
     findSiblings = () => {
         this.setState({
-            results: [],
+            results_sib: [],
             processStatus: PROCESS_STATUS.RUNNING,
             searchType: SEARCH_TYPE.SIBLING
         }, () => {
@@ -619,15 +639,14 @@ class ClonoMatchSection extends Component {
 
     findRandomMatch = () => {
         this.setState({
-            results: [],
+            results_match: [],
             processStatus: PROCESS_STATUS.RUNNING,
             searchType: SEARCH_TYPE.MATCH
         }, () => {
-            console.log("BaseURL:", BaseURL);
             fetch(BaseURL + '/api/clonomatch/random', {
                 method: 'POST'
             }).then(response => {
-                if(response.status === 200) {
+                if (response.status === 200) {
                     response.json().then(this.handleResults);
                 } else {
                     toast("Error finding results", {
@@ -642,18 +661,18 @@ class ClonoMatchSection extends Component {
     };
 
     createCSV = () => {
-        if(this.state.processStatus !== PROCESS_STATUS.SUCCESS) {
+        if (this.state.processStatus !== PROCESS_STATUS.SUCCESS) {
             return;
         }
 
         let data = {};
-        data.rows = this.state.results;
+        this.state.searchType === SEARCH_TYPE.MATCH ? data.rows = this.state.results_match : data.rows = this.state.results_sib;
 
         fetch(BaseURL + '/api/clonomatch/csv', {
             method: 'POST',
             cors: 'no-cors',
             body: JSON.stringify(data)
-        }).then(response=>response.json()).then((response) => {
+        }).then(response => response.json()).then((response) => {
             window.open(BaseURL + '/api/clonomatch/csv/' + response.filename);
         });
     };
@@ -664,6 +683,21 @@ class ClonoMatchSection extends Component {
                 <div id={"clonomatch-section"} className={"page-section flex-column full-width full-height"}>
                     <h1 id={"clonomatch-section-header"} className={"centered"}>ClonoMatch</h1>
 
+                    <div className={"flex-row centered-horiz margin-medium"}>
+                        <span className={"margin-small"}>Find Matches</span>
+                        <Switch
+                            onChange={() => {
+                                if(this.state.searchType === SEARCH_TYPE.MATCH) this.setState({searchType: SEARCH_TYPE.SIBLING});
+                                else this.setState({searchType: SEARCH_TYPE.MATCH});
+                            }}
+                            onClick={() => {
+                                if(this.state.searchType === SEARCH_TYPE.MATCH) this.setState({searchType: SEARCH_TYPE.SIBLING});
+                                else this.setState({searchType: SEARCH_TYPE.MATCH});
+                            }}
+                        />
+                        <span className={"margin-small"}>Find Similar</span>
+                    </div>
+
                     <div id={"clonomatch-section-options"} className={"margin-huge"}>
                         <Option
                             alias={'v'}
@@ -671,7 +705,7 @@ class ClonoMatchSection extends Component {
                             style={{borderRadius: '0px'}}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.state.processStatus === PROCESS_STATUS.RUNNING}
-                            required={true}
+                            required={false}
                             onUpdate={this.onUpdateOptions}
                             values={v_families}
                         />
@@ -681,7 +715,7 @@ class ClonoMatchSection extends Component {
                             style={{borderRadius: '0px'}}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.state.processStatus === PROCESS_STATUS.RUNNING}
-                            required={true}
+                            required={false}
                             onUpdate={this.onUpdateOptions}
                             values={j_families}
                         />
@@ -698,29 +732,82 @@ class ClonoMatchSection extends Component {
                         />
                     </div>
 
-                    <div className={"margin-huge"}>
-                        <button
-                            className={"primary margin-medium"}
-                            disabled={this.state.v === ''
-                            || this.state.j === ''
-                            || this.state.cdr3 === ''
-                            || this.state.processStatus === PROCESS_STATUS.RUNNING}
-                            onClick={this.findMatches}
-                        >Find Matches</button>
-                        <button
-                            disabled={this.state.v === ''
-                            || this.state.j === ''
-                            || this.state.cdr3 === ''
-                            || this.state.processStatus === PROCESS_STATUS.RUNNING}
-                            className={"secondary margin-medium"}
-                            onClick={this.findSiblings}
-                        >Find Similar</button>
-                        <button
-                            className={"utility margin-medium"}
-                            onClick={this.findRandomMatch}
-                        >Random Clonotype</button>
-                    </div>
+                    <CSSTransition
+                        in={this.state.searchType === SEARCH_TYPE.SIBLING}
+                        classNames={"clonomatch-element"}
+                        unmountOnExit
+                        timeout={600}>
+                        <div className={"centered-horiz flex-row"}>
+                            <Option
+                                alias={'pid'}
+                                name={'Minimum Percent Identity'}
+                                type={OPTION_TYPES.REAL}
+                                style={similarStyle}
+                                min={50}
+                                max={100}
+                                default={50}
+                                required={true}
+                                onUpdate={this.onUpdateOptions}
+                                allCaps={true}
+                                disabled={this.state.processStatus === PROCESS_STATUS.RUNNING}
+                            />
+                            <Option
+                                alias={'coverage'}
+                                name={'Minimum Coverage'}
+                                type={OPTION_TYPES.REAL}
+                                style={similarStyle}
+                                min={50}
+                                max={100}
+                                default={90}
+                                required={true}
+                                onUpdate={this.onUpdateOptions}
+                                disabled={this.state.processStatus === PROCESS_STATUS.RUNNING}
+                            />
+                        </div>
+                    </CSSTransition>
 
+                    <CSSTransition
+                        in={this.state.searchType === SEARCH_TYPE.MATCH}
+                        classNames={"clonomatch-element"}
+                        unmountOnExit
+                        timeout={600}>
+                        <div>
+                            <div className={"margin-huge"}>
+                                <button
+                                    className={"primary margin-medium"}
+                                    disabled={this.state.cdr3 === ''
+                                    || this.state.processStatus === PROCESS_STATUS.RUNNING}
+                                    onClick={this.findMatches}
+                                >Find Matches
+                                </button>
+                                <button
+                                    className={"utility margin-medium"}
+                                    onClick={this.findRandomMatch}
+                                >Random Clonotype
+                                </button>
+                            </div>
+                        </div>
+                    </CSSTransition>
+
+                    <CSSTransition
+                        in={this.state.searchType === SEARCH_TYPE.SIBLING}
+                        classNames={"clonomatch-element"}
+                        unmountOnExit
+                        timeout={600}>
+                        <div>
+                            <div className={"margin-huge"}>
+                                <button
+                                    disabled={this.state.v === ''
+                                    || this.state.j === ''
+                                    || this.state.cdr3 === ''
+                                    || this.state.processStatus === PROCESS_STATUS.RUNNING}
+                                    className={"primary margin-medium"}
+                                    onClick={this.findSiblings}
+                                >Find Similar
+                                </button>
+                            </div>
+                        </div>
+                    </CSSTransition>
 
                     <div id={"clonomatch-results-container"}>
                         <CSSTransition
@@ -743,24 +830,33 @@ class ClonoMatchSection extends Component {
                         </CSSTransition>
 
                         <CSSTransition
-                            in={this.state.processStatus === PROCESS_STATUS.SUCCESS}
+                            in={this.state.processStatus === PROCESS_STATUS.SUCCESS
+                                && ((this.state.searchType === SEARCH_TYPE.MATCH && this.state.results_match.length > 0)
+                                || (this.state.searchType === SEARCH_TYPE.SIBLING && this.state.results_sib.length > 0))}
                             classNames={"clonomatch-element"}
                             unmountOnExit
                             timeout={600}>
                             <div
                                 className={"spacing-gargantuan full-width flex-column centered-horiz centered-vert"}>
-                                <span className={"spacing-large"}>{'Matches for: ' + this.state.results_v + ' ' + this.state.results_j + ' ' + this.state.results_cdr3}</span>
+                                <span className={"spacing-large"}>{'Results for: '.concat(
+                                    this.state.searchType === SEARCH_TYPE.MATCH ? this.state.results_match_v : this.state.results_sib_v,
+                                    ' ', this.state.searchType === SEARCH_TYPE.MATCH ? this.state.results_match_j : this.state.results_sib_j,
+                                    ' ', this.state.searchType === SEARCH_TYPE.MATCH ? this.state.results_match_cdr3 : this.state.results_sib_cdr3
+                                )}
+                                </span>
                                 <ResultsTable
                                     keys={this.state.searchType === SEARCH_TYPE.MATCH ? MATCH_KEYS : SIBLING_KEYS}
-                                    results={this.state.results}
+                                    results={this.state.searchType === SEARCH_TYPE.MATCH ? this.state.results_match : this.state.results_sib}
                                 />
 
                                 <div id="clonomatch-section-results" className={"flex-row centered margin-huge"}>
                                     <button
                                         className={"utility margin-medium"}
-                                        disabled={this.state.results.length === 0}
+                                        disabled={this.state.searchType === SEARCH_TYPE.MATCH ?
+                                            this.state.results_match.length === 0 : this.state.results_sib.length === 0}
                                         onClick={this.createCSV}
-                                    >Download CSV</button>
+                                    >Download CSV
+                                    </button>
                                 </div>
                             </div>
                         </CSSTransition>
@@ -770,9 +866,5 @@ class ClonoMatchSection extends Component {
         );
     }
 }
-
-ClonoMatchSection.propTypes = {
-    appState: PropTypes.object.isRequired
-};
 
 export default ClonoMatchSection;

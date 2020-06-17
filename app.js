@@ -7,6 +7,7 @@ var cors = require('cors');
 var logger = require('morgan');
 
 var app = express();
+global.appRoot = path.resolve(__dirname);
 
 let corsConfig = {
     origin: "*",
@@ -14,7 +15,7 @@ let corsConfig = {
     preflightContinue: false,
     methods: ['GET', 'POST'],
     exposedHeaders: ['Content-Range', 'X-Content-Range']
-}
+};
 app.use(cors(corsConfig));
 
 app.use(logger('dev'));

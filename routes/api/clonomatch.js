@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const fs = require('fs');
 const path = require('path');
-const MongoWrapper = require('../../lib/MongoWrapper');
+const MongoWrapper = require(path.join(global.appRoot, 'lib', 'MongoWrapper'));
 const { execSync, spawn } = require('child_process');
-const config = require("../../conf/clonomatch");
+const config = require(path.join(global.appRoot, process.env.CONF));
 
 let createCSVOutput = (rows) => {
     let retval = '';
@@ -57,7 +57,8 @@ router.post('/sibling', function(req, res) {
         }
 
         //You'll thank me later if you want to debug sibsearch
-        let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3, '--dir', dir];
+        let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3,
+            '--dir', dir, '--pid', body.pid, '--coverage', body.coverage];
         spawn('python3', args).on('exit', (code) => {
             if(code === 0) {
                 let results = require(path.join(process.cwd(), dir, 'filtered.json'));
