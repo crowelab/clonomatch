@@ -178,9 +178,11 @@ An example file is included which appears as follows:
 }
 ```
 
+If you are running a local MongoDB instance, you likely won't have to change any settings. If using a non-Linux machine, you will want to supply a path to your own blastp and makeblastdb executables.
+
 ### 5. Run setup script
 ##### NOTE: This process can take a very VERY long time. Our database of over 800 million sequences took over 6 hours to run
-Included with ClonoMatch is a script to build the clonotype files and BLAST databases automatically, based on the configuration in the conf/clonomatch.json file. The script is ran with the command
+Included with ClonoMatch is a script to build the clonotype files and BLAST databases automatically, based on the configuration in the conf/clonomatch.json file. The script is run with the command:
 
 ```
 npm run setup
@@ -189,9 +191,28 @@ npm run setup
 ### 6. Running in Development and Production Environments
 
 #### Development
+The development script uses Python to boot both the node.js backend and React frontend in 2 separate processes. The script will run in the current terminal instance until terminated.
+
+```
+npm run local
+```
 
 #### Production
+Building and deploying the production environment is done in two steps: the first is running the build script, which runs the react-scripts build script as well as building the sass stylesheets:
+```
+npm run build
+```
 
+After which, everything is in place to run the production environment.
+```
+npm run deploy
+```
 
+#### Other scripts
+Rebuild stylesheets by running:
+
+```
+npm run sass
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) Using React Scripts v. 2.1.3.
