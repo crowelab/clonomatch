@@ -56,7 +56,6 @@ router.post('/sibling', function(req, res) {
             res.send(500);
         }
 
-        //You'll thank me later if you want to debug sibsearch
         let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3,
             '--dir', dir, '--pid', body.pid, '--coverage', body.coverage];
         spawn('python3', args).on('exit', (code) => {

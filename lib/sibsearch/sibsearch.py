@@ -5,15 +5,6 @@ from os import path
 import json
 import sys
 import subprocess
-# from pymongo import MongoClient
-
-# from SibSearch.mongo import MongoWrapper
-#from SibSearch.runners import BlastRunner
-# QUERY_DIR = '../generated_data'
-# DB_DIR = 'lib/sibsearch/dbs'
-
-# db = None
-# collection = None
 
 BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..','..')
 config = {}
@@ -29,8 +20,10 @@ sequence_args.add_argument('--cdr3', required=True)
 sequence_args.add_argument('--dir', required=True)
 sequence_args.add_argument('--pid', type=float)
 sequence_args.add_argument('--coverage', type=float)
-# sequence_args.add_argument('--dir', required=True)
 args = parser.parse_args()
+
+if not path.exists(args.dir):
+  os.makedirs(args.dir)
 
 vj = args.v.replace('/','') + '_' + args.j
 queryfile = path.join(args.dir, 'query.fasta')
