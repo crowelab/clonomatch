@@ -18,7 +18,12 @@ else:
   BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..')
   with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
     config = json.load(fin)
-
+    
+if not path.exists(config['app']['sibsearch']['db_dir']):
+  os.makedirs(config['app']['sibsearch']['db_dir'])
+if not path.exists(config['app']['clonotypes']['dir']):
+  os.makedirs(config['app']['clonotypes']['dir'])
+  
 print("config file loaded")
 try:
   with MongoClient(config['database']['mongo_url']) as client:
