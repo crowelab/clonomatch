@@ -8,8 +8,8 @@
     "sibsearch": {
       "db_dir": "lib/sibsearch/dbs",
       "executable": "lib/sibsearch/sibsearch.py",
-      "blastp": "lib/sibsearch/bin/blastp_darwin",
-      "makeblastdb": "lib/sibsearch/bin/makeblastdb_darwin"
+      "blastp": "lib/sibsearch/bin/blastp",
+      "makeblastdb": "lib/sibsearch/bin/makeblastdb"
     },
     "url": {
       "development": "http://localhost:8888",
