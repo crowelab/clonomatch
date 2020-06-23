@@ -606,7 +606,8 @@ class ClonoMatchSection extends Component {
                     'd': result['_id']['d'],
                     'j': result['_id']['j'],
                     'cdr3': result['_id']['cdr3'],
-                    'count': result['count']
+                    'count': result['count'],
+                    'seqs': result['seqs']
                 });
             }
         } else if (this.state.searchType === SEARCH_TYPE.SIBLING) {

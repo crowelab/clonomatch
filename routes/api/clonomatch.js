@@ -116,19 +116,43 @@ router.post('/random', function(req, res) {
 
 router.post('/csv', function(req, res) {
     let body = JSON.parse(req.body);
-
-    let filename = new Date().getTime() + ".csv";
-    let filepath = path.join(config.app.data_dir,filename);
-    let content = createCSVOutput(body.rows);
-
-    fs.writeFile(filepath, content, 'utf8', (err) => {
-        if (err) {
-            res.sendStatus(500);
-            throw err;
+    if(body.rows.length !== 0) {
+        let filename = new Date().getTime() + ".csv";
+        let filepath = path.join(config.app.data_dir,filename);
+        let rows = [];
+        if(Object.keys(body.rows[0]).includes('seqs')) {
+            for(let row of body.rows) {
+                for(let seq of row.seqs) {
+                    rows.push({
+                        'v': row.v,
+                        'd': row.d,
+                        'j': row.j,
+                        'cdr3': row.cdr3,
+                        'donor': row.donor,
+                        'count': row.count,
+                        'seq': seq.seq
+                    });
+                }
+            }
+        } else {
+            rows = body.rows;
         }
 
-        res.json({filename: filename});
-    })
+        console.log("rows", rows);
+
+        let content = createCSVOutput(rows);
+
+        fs.writeFile(filepath, content, 'utf8', (err) => {
+            if (err) {
+                res.sendStatus(500);
+                throw err;
+            }
+
+            res.json({filename: filename});
+        })
+    } else {
+        res.sendStatus(500);
+    }
 });
 
 router.get('/csv/:filename', function(req, res) {

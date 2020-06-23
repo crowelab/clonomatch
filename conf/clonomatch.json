@@ -25,6 +25,7 @@
       "j": "j",
       "d": "d",
       "cdr3": "cdr3",
+      "sequence_alignment": "sequence",
       "donor": "donor"
     }
   },
