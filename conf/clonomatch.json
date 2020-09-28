@@ -21,9 +21,9 @@
     "mongo_collection": "public",
     "mongo_database": "sequences",
     "schema": {
-      "v": "v",
-      "j": "j",
-      "d": "d",
+      "v": "v_call",
+      "j": "j_call",
+      "d": "d_call",
       "cdr3": "cdr3",
       "donor": "donor"
     }

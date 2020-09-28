@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import Switch from "rc-switch";
 
 
+// Sibling keys and match keys on 445 --- this will need to be edited beforehand.
+
 const CHAIN_TYPE = {
     BCELL_HEAVY: 'bcell_heavy',
     BCELL_LIGHT_K: 'bcell_light_k',
@@ -596,21 +598,40 @@ class ClonoMatchSection extends Component {
         this.setState(stateChange);
     };
 
+// This is the thing
     handleResults = (response) => {
         let results = [];
         if (this.state.searchType === SEARCH_TYPE.MATCH) {
             for (let result of response.results) {
-                results.push({
-                    'donor': result['_id']['donor'],
-                    'v': result['_id']['v'],
-                    'd': result['_id']['d'],
-                    'j': result['_id']['j'],
-                    'cdr3': result['_id']['cdr3'],
-                    'count': result['count']
-                });
+
+                tmp = JSON.parse(JSON.stringify(result));
+
+                delete tmp.og_cdr3;
+                delete tmp.match_cdr3;
+                delete tmp.pid;
+                delete tmp.count;
+                delete tmp.coverage;
+
+                results.push(tmp);
+
+                // results.push({
+                //     'donor': result['_id']['donor'],
+                //     'v': result['_id']['v'],
+                //     'd': result['_id']['d'],
+                //     'j': result['_id']['j'],
+                //     'cdr3': result['_id']['cdr3'],
+                //     'count': result['count']
+                // });
+
+                // instead of doing this deepcopy and delete 
+
             }
         } else if (this.state.searchType === SEARCH_TYPE.SIBLING) {
             for (let result of response.results) {
+
+                tmp = JSON.parse(JSON.stringify(result));
+
+                // worry about this one later
                 results.push({
                     'donor': result['donor'],
                     'v': response['v'],
@@ -623,6 +644,8 @@ class ClonoMatchSection extends Component {
                     'count': result['count'],
                     'coverage': result['coverage']
                 });
+
+                // instead of doing this deepcopy and delete 
             }
         }
 
