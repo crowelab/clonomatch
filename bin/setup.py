@@ -69,7 +69,7 @@ try:
 
     group['$group']['_id']['donor'] = '$' + config['database']['schema']['donor']
     group['$group']['_id']['v'] = '$' + config['database']['schema']['v']
-    #group['$group']['_id']['d'] = '$' + config['database']['schema']['d']
+    group['$group']['_id']['d'] = '$' + config['database']['schema']['d']
     group['$group']['_id']['j'] = '$' + config['database']['schema']['j']
     group['$group']['_id']['cdr3'] = '$' + config['database']['schema']['cdr3']
 
