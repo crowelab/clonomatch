@@ -45,20 +45,29 @@ router.post('/', function(req, res) {
     });
 });
 
+
+
+
 router.post('/sibling', function(req, res) {
     let body = JSON.parse(req.body);
+    console.log(body);
 
     let name = String(new Date().getTime());
     let dir = path.join(config.app.data_dir, name);
     fs.mkdir(dir, (err) => {
         if(err) {
-            console.error("Couldn't create:", dir);
+            console.error("Couldn't create:", dir); // This line is bombing
             res.send(500);
         }
 
         let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3,
             '--dir', dir, '--pid', body.pid, '--coverage', body.coverage];
+
+        console.log("the arguments for the call are")
+        console.log(args);     
+
         spawn('python3', args).on('exit', (code) => {
+            console.log("code" + code);
             if(code === 0) {
                 let results = require(path.join(process.cwd(), dir, 'filtered.json'));
                 res.json({

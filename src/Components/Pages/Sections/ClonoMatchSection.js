@@ -494,9 +494,13 @@ const SIBLING_KEYS = [{
     Cell: (row) => {
         let spanList = [];
         let cdr3 = row.original.cdr3;
+        // console.log("cdr31", row.original.cdr3);
         let ogCdr3 = row.original.og_cdr3;
         let matchCdr3 = row.original.match_cdr3;
+        // console.log("cdr3", cdr3);
 
+    // This is going to need to change
+        // // console.log(ogCdr3);
         let cdr3Split = cdr3.split(ogCdr3.replace(new RegExp('-', 'g'),''));
 
         for(let i = 0; i < cdr3Split[0].length; i++) {
@@ -604,7 +608,7 @@ class ClonoMatchSection extends Component {
         if (this.state.searchType === SEARCH_TYPE.MATCH) {
             for (let result of response.results) {
 
-                tmp = JSON.parse(JSON.stringify(result));
+                let tmp = JSON.parse(JSON.stringify(result));
 
                 delete tmp.og_cdr3;
                 delete tmp.match_cdr3;
@@ -629,9 +633,10 @@ class ClonoMatchSection extends Component {
         } else if (this.state.searchType === SEARCH_TYPE.SIBLING) {
             for (let result of response.results) {
 
-                tmp = JSON.parse(JSON.stringify(result));
+                let tmp = JSON.parse(JSON.stringify(result));
 
-                // worry about this one later
+                // worry about adding additional columns later on 
+                // results.push(tmp);
                 results.push({
                     'donor': result['donor'],
                     'v': response['v'],
@@ -719,6 +724,7 @@ class ClonoMatchSection extends Component {
     };
 
     findRandomMatch = () => {
+        console.log("testing");
         this.setState({
             results_match: [],
             processStatus: PROCESS_STATUS.RUNNING,

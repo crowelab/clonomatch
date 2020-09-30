@@ -48,35 +48,18 @@ out = []
 with open(resultsfile, 'r') as fin:
     for line in fin:
         ls = line.strip().split(',')
+        print(ls)
 
         if float(ls[THRESHOLD_INDEX]) >= args.pid and float(ls[COVERAGE_INDEX]) >= args.coverage:
             
             
-            # Other proposed way of handling this
+            tmp = ls[1]
             donorFields = list(map(lambda x: tuple(x.split(":")), tmp.split("_") )) 
-            otherFields =  [("og_cdr3", ls[QUERY_INDEX]), 
-                ('match_cdr3': ls[MATCH_INDEX]), 
-                ('pid': "{:.2f}".format(float(ls[THRESHOLD_INDEX])) + "%"), 
-                ('coverage': "{:.2f}".format(float(ls[COVERAGE_INDEX])) + "%")]
+            otherFields =  [("og_cdr3", ls[QUERY_INDEX]), ('cdr3', ls[MATCH_INDEX]), ('match_cdr3', ls[MATCH_INDEX]), 
+                ('pid', "{:.2f}".format(float(ls[THRESHOLD_INDEX])) + "%"), 
+                ('coverage', "{:.2f}".format(float(ls[COVERAGE_INDEX])) + "%")]
 
             out.append(dict(donorFields + otherFields))
 
-            ## Old way 
-            # hip, d, count, _ = ls[1].split('_')
-
-            # out.append({
-            #     'donor': hip,
-            #     'd': d,
-            #     'count': count,
-            #     'og_cdr3': ls[QUERY_INDEX],
-            #     'match_cdr3': ls[MATCH_INDEX],
-            #     'pid': "{:.2f}".format(float(ls[THRESHOLD_INDEX])) + "%",
-            #     'coverage': "{:.2f}".format(float(ls[COVERAGE_INDEX])) + "%"
-            # })
-
 with open(outfile, 'w') as fout:
     json.dump(out,fout)
-
-
-
-tmp = donor:asdfasdf_d:asdfasdf_count:asdfasdf

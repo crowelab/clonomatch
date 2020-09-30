@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from pymongo import MongoClient
-import json
+import json 
 import argparse
 import os
 import subprocess
@@ -49,9 +49,6 @@ try:
     fout = None
     for i,row in enumerate(rows):
 
-      #print(row)
-      #print(row['_id'].keys()-set(['cdr3']))
-      #print(row)
 
       if i%config['app']['clonotypes']['lines_per_file'] == 0:
         if fout:
@@ -60,11 +57,6 @@ try:
         print("Writing to:",fname)
         fout = open(path.join(config['app']['clonotypes']['dir'], fname), 'w')
 
-      print(nameLine)
-      
-      exit(0)
-      # here are the things 
-      # fout.write(row['_id']['v'] + ',' + row['_id']['j'] + ',' + row['_id']['cdr3'] + '\n')
       fout.write(row['_id']['v'] + ',' + row['_id']['j'] + ',' + row['_id']['cdr3'] + '\n')
 
     fout.close()
@@ -74,12 +66,10 @@ try:
 
     group = {'$group': {'_id': {}, 'count': {'$sum': 1}} }
 
-    # group = {'$group': {'_id': {}, 'count': {'$sum': 1}} }
-    # group['$group']['_id']['d'] = '$' + config['database']['schema']['d']
-    # need to have a group column in it also 
 
     group['$group']['_id']['donor'] = '$' + config['database']['schema']['donor']
     group['$group']['_id']['v'] = '$' + config['database']['schema']['v']
+    #group['$group']['_id']['d'] = '$' + config['database']['schema']['d']
     group['$group']['_id']['j'] = '$' + config['database']['schema']['j']
     group['$group']['_id']['cdr3'] = '$' + config['database']['schema']['cdr3']
 
@@ -94,6 +84,10 @@ try:
      
       nameLine = "_".join(map(lambda x : x[0] + ":" + x[1], pairs))
       nameLine += "_num:"+str(i)
+      nameLine += "_count:" + str(row['count'])
+
+      if row['_id']['v'] == '' or row['_id']['j'] == '':
+          continue
 
       vj = row['_id']['v'].replace('/','') + '_' + row['_id']['j']
       if not path.exists(path.join(config['app']['sibsearch']['db_dir'],vj)):
@@ -101,8 +95,7 @@ try:
 
       with open(path.join(config['app']['sibsearch']['db_dir'],vj,'cdr3.fasta'), 'a') as fout:
         # fout.write('>' + row['_id']['donor'] + '_' + row['_id']['d'] + '_' + str(row['num']) + '_' + str(i) + '\n' + row['_id']['cdr3'] + '\n')
-
-        fout.write('>' + row['_id']['donor'] + '_' + row['_id']['d'] + '_' + str(row['num']) + '_' + str(i) + '\n' + row['_id']['cdr3'] + '\n')
+        fout.write('>' + nameLine +  '\n' + row['_id']['cdr3'] + '\n')
 
 
     for vj in os.listdir(config['app']['sibsearch']['db_dir']):
