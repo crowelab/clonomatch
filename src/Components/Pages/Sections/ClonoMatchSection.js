@@ -449,7 +449,13 @@ const MATCH_KEYS = [
         Header: 'Donor',
         accessor: 'donor',
         minWidth: 50,
-    }, {
+    },
+    {
+        Header: 'Ballz',
+        accessor: 'balls',
+        minWidth: 50,
+    }, 
+    {
         Header: 'V Family',
         accessor: 'v',
         minWidth: 50,
@@ -465,81 +471,62 @@ const MATCH_KEYS = [
         Header: 'CDR3',
         accessor: 'cdr3',
         minWidth: 50,
+    },{
+        Header: 'Match CDR3',
+        accessor: 'match_cdr3',
+        maxWidth: 500,
+        Cell: (row) => {
+            let spanList = [];
+            let cdr3 = row.original.cdr3;
+            let ogCdr3 = row.original.og_cdr3;
+            let matchCdr3 = row.original.match_cdr3;
+            if (ogCdr3){
+                let cdr3Split = cdr3.split(ogCdr3.replace(new RegExp('-', 'g'),''));
+                for(let i = 0; i < cdr3Split[0].length; i++) {
+                    spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
+                }
+        
+                for(let i = 0; i < ogCdr3.length; i++) {
+                    if(ogCdr3[i] === '-') {
+                        spanList.push(<span style={{color: '#00dd00', fontWeight: 'bold'}}>{matchCdr3[i]}</span>)
+                    } else if(matchCdr3[i] === '-') {
+                        spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
+                    } else if(matchCdr3[i] !== ogCdr3[i]) {
+                        spanList.push(<span style={{color: '#f00', fontWeight: 'bold'}}>{matchCdr3[i]}</span>)
+                    } else {
+                        spanList.push(<span>{matchCdr3[i]}</span>)
+                    }
+                }
+        
+                for(let i = 0; i < cdr3Split[1].length; i++) {
+                    spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
+                }
+            }
+            else{
+                let cdr3Split = null;
+            }
+    
+            return <div>{spanList.map(span => {
+                return span;
+            })}</div>
+        }
     }, {
+        Header: "Percent Identity",
+        accessor: 'pid',
+        minWidth: 50
+    }, {
+        Header: "Coverage",
+        accessor: 'coverage',
+        minWidth: 50
+    },
+     {
         Header: 'Count',
         accessor: 'count',
         minWidth: 50
     }
 ];
-const SIBLING_KEYS = [{
-        Header: 'Donor',
-        accessor: 'donor',
-        minWidth: 50,
-    }, {
-        Header: 'V Family',
-        accessor: 'v',
-        minWidth: 50,
-    }, {
-        Header: 'D Family',
-        accessor: 'd',
-        minWidth: 50,
-    }, {
-        Header: 'J Family',
-        accessor: 'j',
-        minWidth: 50,
-    }, {
-    Header: 'Match CDR3',
-    accessor: 'match_cdr3',
-    maxWidth: 500,
-    Cell: (row) => {
-        let spanList = [];
-        let cdr3 = row.original.cdr3;
-        // console.log("cdr31", row.original.cdr3);
-        let ogCdr3 = row.original.og_cdr3;
-        let matchCdr3 = row.original.match_cdr3;
-        // console.log("cdr3", cdr3);
 
-    // This is going to need to change
-        // // console.log(ogCdr3);
-        let cdr3Split = cdr3.split(ogCdr3.replace(new RegExp('-', 'g'),''));
-
-        for(let i = 0; i < cdr3Split[0].length; i++) {
-            spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
-        }
-
-        for(let i = 0; i < ogCdr3.length; i++) {
-            if(ogCdr3[i] === '-') {
-                spanList.push(<span style={{color: '#00dd00', fontWeight: 'bold'}}>{matchCdr3[i]}</span>)
-            } else if(matchCdr3[i] === '-') {
-                spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
-            } else if(matchCdr3[i] !== ogCdr3[i]) {
-                spanList.push(<span style={{color: '#f00', fontWeight: 'bold'}}>{matchCdr3[i]}</span>)
-            } else {
-                spanList.push(<span>{matchCdr3[i]}</span>)
-            }
-        }
-
-        for(let i = 0; i < cdr3Split[1].length; i++) {
-            spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
-        }
-
-        return <div>{spanList.map(span => {
-            return span;
-        })}</div>
-    }
-}, {
-    Header: "Percent Identity",
-    accessor: 'pid',
-    minWidth: 50
-}, {
-    Header: "Coverage",
-    accessor: 'coverage',
-    minWidth: 50
-}, {
-    Header: 'Count',
-    accessor: 'count',
-    minWidth: 50
-}];
+let MATCH_KEYS2 = MATCH_KEYS;
 
 class ClonoMatchSection extends Component {
     constructor(props) {
@@ -608,49 +595,34 @@ class ClonoMatchSection extends Component {
         if (this.state.searchType === SEARCH_TYPE.MATCH) {
             for (let result of response.results) {
 
-                let tmp = JSON.parse(JSON.stringify(result));
-
-                delete tmp.og_cdr3;
-                delete tmp.match_cdr3;
-                delete tmp.pid;
-                delete tmp.count;
-                delete tmp.coverage;
-
+                // Instead of only passing selsect attributes grab all that there are and hand them all to the template
+                let tmp = JSON.parse(JSON.stringify(result['_id']));
+                tmp['count'] = result['count'];
                 results.push(tmp);
-
-                // results.push({
-                //     'donor': result['_id']['donor'],
-                //     'v': result['_id']['v'],
-                //     'd': result['_id']['d'],
-                //     'j': result['_id']['j'],
-                //     'cdr3': result['_id']['cdr3'],
-                //     'count': result['count']
-                // });
-
-                // instead of doing this deepcopy and delete 
-
+                
+                if (results.length >0) {
+                    MATCH_KEYS2 = MATCH_KEYS.filter(foo => foo.accessor in results[0]);
+                }
+                else {
+                    MATCH_KEYS2 = MATCH_KEYS;
+                }
             }
         } else if (this.state.searchType === SEARCH_TYPE.SIBLING) {
             for (let result of response.results) {
 
                 let tmp = JSON.parse(JSON.stringify(result));
+                tmp['v'] = response['v'];
+                tmp['j'] = response['j'];
+                tmp['cdr3'] = response['cdr3'];
 
-                // worry about adding additional columns later on 
-                // results.push(tmp);
-                results.push({
-                    'donor': result['donor'],
-                    'v': response['v'],
-                    'd': result['d'],
-                    'j': response['j'],
-                    'cdr3': response['cdr3'],
-                    'og_cdr3': result['og_cdr3'],
-                    'match_cdr3': result['match_cdr3'],
-                    'pid': result['pid'],
-                    'count': result['count'],
-                    'coverage': result['coverage']
-                });
+                results.push(tmp);
 
-                // instead of doing this deepcopy and delete 
+                if (results.length >0) {
+                    MATCH_KEYS2 = MATCH_KEYS.filter(foo => foo.accessor in results[0]);
+                }
+                else {
+                    MATCH_KEYS2 = MATCH_KEYS;
+                }
             }
         }
 
@@ -932,7 +904,7 @@ class ClonoMatchSection extends Component {
                                 )}
                                 </span>
                                 <ResultsTable
-                                    keys={this.state.searchType === SEARCH_TYPE.MATCH ? MATCH_KEYS : SIBLING_KEYS}
+                                    keys={MATCH_KEYS2}
                                     results={this.state.searchType === SEARCH_TYPE.MATCH ? this.state.results_match : this.state.results_sib}
                                 />
 

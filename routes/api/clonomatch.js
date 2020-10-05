@@ -45,8 +45,6 @@ router.post('/', function(req, res) {
     });
 });
 
-
-
 router.post('/sibling', function(req, res) {
     let body = JSON.parse(req.body);
 
