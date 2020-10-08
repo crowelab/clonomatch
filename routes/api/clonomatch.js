@@ -52,12 +52,13 @@ router.post('/sibling', function(req, res) {
     let dir = path.join(config.app.data_dir, name);
     fs.mkdir(dir, (err) => {
         if(err) {
-            console.error("Couldn't create:", dir);
+            console.error("Couldn't create:", dir); // This line is bombing
             res.send(500);
         }
 
         let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3,
             '--dir', dir, '--pid', body.pid, '--coverage', body.coverage];
+
         spawn('python3', args).on('exit', (code) => {
             if(code === 0) {
                 let results = require(path.join(process.cwd(), dir, 'filtered.json'));

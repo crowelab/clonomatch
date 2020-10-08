@@ -21,10 +21,10 @@
     "mongo_collection": "public",
     "mongo_database": "sequences",
     "schema": {
-      "v": "v",
-      "j": "j",
-      "d": "d",
-      "cdr3": "cdr3",
+      "v": "v_family",
+      "j": "j_family",
+      "d": "d_family",
+      "cdr3": "cdr3_aa",
       "donor": "donor"
     }
   },

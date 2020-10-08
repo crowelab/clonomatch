@@ -5,6 +5,7 @@ import Layout from "./Components/Layout/Layout";
 import {ToastContainer,Zoom} from "react-toastify";
 
 class App extends Component {
+
     constructor(props) {
         super(props);
     }

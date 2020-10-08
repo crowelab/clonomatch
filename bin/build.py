@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import subprocess
 import json
 import argparse
@@ -5,7 +6,7 @@ from os import path
 
 print("Loading config file")
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', help='Configuration file')
+parser.add_argument('--config', help='Configuration file', required=True)
 args = parser.parse_args()
 print("Loading config file")
 
