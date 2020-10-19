@@ -1,10 +1,85 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const fs = require('fs');
+const tmp = require('tmp');
 const path = require('path');
 const MongoWrapper = require(path.join(global.appRoot, 'lib', 'MongoWrapper'));
-const { execSync, spawn } = require('child_process');
+const { execSync, spawn, spawnSync } = require('child_process');
+const crypto = require('crypto');
+const { Parser } = require('json2csv');
+const Papa = require('papaparse');
+// const socketHandler = require('../../lib/socketIOHandler.js').socketHandler;
 const config = require(path.join(global.appRoot, process.env.CONF));
+
+let runSibsearch = (body, res) => {
+    tmp.file({ prefix: 'clonomatch-', postfix: '.json' }, (err, fname) => {
+        if (err) throw err;
+
+        let args = [config.app.sibsearch.executable, '--cdr3', body.cdr3,
+            '--out', fname, '--pid', body.pid, '--coverage', body.coverage];
+        if(body.v !== '') args.push('-v', body.v);
+        if(body.j !== '') args.push('-j', body.j);
+
+        console.log('args:', args)
+        let child = spawn('python3', args);
+        child.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+        child.on('error', (err) => { console.error(err); });
+        child.on('exit', (code) => {
+            if(code === 0) {
+                console.log("Sibsearch finished:", fname);
+                let results = require(fname);
+
+                let v3j = body.v + '_' + body.j + '_' + body.cdr3;
+                let outname = v3j + '_results' + crypto.randomBytes(3).toString('hex');
+                fs.writeFileSync(path.join(config.app.data_dir,outname + '.json'), JSON.stringify(results));
+                const csvParser = new Parser();
+                fs.writeFileSync(path.join(config.app.data_dir,outname + '.csv'), csvParser.parse(results));
+
+                res.json({
+                    v: body.v,
+                    j: body.j,
+                    cdr3: body.cdr3,
+                    results: results,
+                    out_filename: outname
+                });
+            } else {
+                console.log("code", code)
+                res.send(500);
+            }
+        });
+    });
+}
+
+let runSibsearchBulk = (body) => {
+    return new Promise((resolve, reject) => {
+        let files = [];
+
+        for(let row of body.data) {
+            if('cdr3' in row) {
+                continue
+            }
+
+            let fileObject = tmp.fileSync({prefix: 'clonomatch-', postfix: '.json', keep: true});
+            let args = [config.app.sibsearch.executable, '--cdr3', row[2],
+                '--out', fileObject.name, '--pid', body.pid, '--coverage', body.coverage];
+            if (row[0] !== '') args.push('-v', row[0]);
+            if (row[1] !== '') args.push('-j', row[1]);
+
+            let process = spawnSync('python3', args);
+            if(process.error) console.error(process.error);
+            else if(process.status === 0) files.push(require(fileObject.name));
+            else console.log("error running sibsearch on:", args, "with code:", process.status);
+
+            console.log("Done with:", fileObject.name, row[0], row[1], row[2])
+
+            fileObject.removeCallback();
+        }
+
+        resolve(files);
+    });
+}
 
 let createCSVOutput = (rows) => {
     let retval = '';
@@ -23,140 +98,63 @@ let createCSVOutput = (rows) => {
 };
 
 router.post('/', function(req, res) {
-    let body;
-    if(typeof(req.body) === 'object') {
-        body = req.body;
-    } else {
-        body = JSON.parse(req.body);
-    }
-
-    MongoWrapper.getV3JMatches(body.v, body.j, body.cdr3, (err, results) => {
-        if(err) {
-            console.error("Error getting V3J Matches:", err);
-            res.send(500);
-        } else {
-            res.json({
-                v: body.v,
-                j: body.j,
-                cdr3: body.cdr3,
-                results: results
-            });
-        }
-    });
-});
-
-router.post('/sibling', function(req, res) {
     let body = JSON.parse(req.body);
 
-    let name = String(new Date().getTime());
-    let dir = path.join(config.app.data_dir, name);
-    fs.mkdir(dir, (err) => {
-        if(err) {
-            console.error("Couldn't create:", dir);
-            res.send(500);
-        }
+    runSibsearch(body, res);
+});
 
-        let args = [config.app.sibsearch.executable, '-v', body.v, '-j', body.j, '--cdr3', body.cdr3,
-            '--dir', dir, '--pid', body.pid, '--coverage', body.coverage];
-        spawn('python3', args).on('exit', (code) => {
-            if(code === 0) {
-                let results = require(path.join(process.cwd(), dir, 'filtered.json'));
-                res.json({
-                    v: body.v,
-                    j: body.j,
-                    cdr3: body.cdr3,
-                    results: results
-                });
-            } else {
-                res.send(500);
-            }
-        });
-    });
+router.post('/bulk', function(req, res) {
+    let body = JSON.parse(req.body);
+    console.log("bulk body",body);
+
+    if(body.data != null) {
+        runSibsearchBulk(body).then((resolve) => {
+
+        }, (reject) => {
+            console.log("RunSibsearchBulk failed:",reject);
+        })
+
+        res.sendStatus(200)
+    } else {
+
+    }
 });
 
 router.post('/random', function(req, res) {
-    fs.readdir(config.app.clonotypes.dir, (err, files) => {
-        if(!err) {
-            let file = files[Math.floor(Math.random()*files.length)];
-            let line_num = Math.floor(Math.random()*parseInt(config.app.clonotypes.lines_per_file));
+    let body = JSON.parse(req.body);
 
-            let line = execSync('sed \'' + String(line_num) + 'q;d\' ' + path.join(config.app.clonotypes.dir, file))
-                .toString();
-
-            /*
-                If line is empty repeat until found
-             */
-            while(!line.includes(',')) {
-                file = files[Math.floor(Math.random()*files.length)];
-                line_num = Math.floor(Math.random()*parseInt(config.app.clonotypes.lines_per_file));
-                line = execSync('sed \'' + String(line_num) + 'q;d\' ' + path.join(config.app.clonotypes.dir, file))
-                    .toString();
-            }
-
-            let ls = line.trim().split(',');
-            MongoWrapper.getV3JMatches(ls[0], ls[1], ls[2], (err, results) => {
-                if(err) {
-                    console.error("Error getting Random V3J Match:", err);
-                    res.send(500);
-                } else {
-                    res.json({
-                        v: ls[0],
-                        j: ls[1],
-                        cdr3: ls[2],
-                        results: results
-                    });
-                }
-            });
-        } else {
-            console.error("random clonotype failed -- no random v3j returned");
+    MongoWrapper.getRandomSequence((err, results) => {
+        if(err) {
+            console.error("Error getting Random V3J Match:", err);
             res.send(500);
+        } else {
+            runSibsearch({
+                v: results[0].v_call.split('*')[0],
+                j: results[0].j_call.split('*')[0],
+                cdr3: results[0].cdr3_aa,
+                pid: body.pid,
+                coverage: body.coverage
+            }, res);
         }
     });
 });
 
-router.post('/csv', function(req, res) {
-    let body = JSON.parse(req.body);
-    if(body.rows.length !== 0) {
-        let filename = new Date().getTime() + ".csv";
-        let filepath = path.join(config.app.data_dir,filename);
-        let rows = [];
-        if(Object.keys(body.rows[0]).includes('seqs')) {
-            for(let row of body.rows) {
-                for(let seq of row.seqs) {
-                    rows.push({
-                        'v': row.v,
-                        'd': row.d,
-                        'j': row.j,
-                        'cdr3': row.cdr3,
-                        'donor': row.donor,
-                        'count': row.count,
-                        'seq': seq.seq
-                    });
-                }
+router.get('/csv/:filename', function(req, res) {
+    let filename = path.join(config.app.data_dir, req.params.filename + '.csv');
+
+    if(fs.existsSync(filename)) {
+        res.download(filename, function(err) {
+            if(err) {
+                console.log("Error downloading CSV:", err);
             }
-        } else {
-            rows = body.rows;
-        }
-
-        console.log("rows", rows);
-
-        let content = createCSVOutput(rows);
-
-        fs.writeFile(filepath, content, 'utf8', (err) => {
-            if (err) {
-                res.sendStatus(500);
-                throw err;
-            }
-
-            res.json({filename: filename});
-        })
+        });
     } else {
-        res.sendStatus(500);
+        res.sendStatus(404);
     }
 });
 
-router.get('/csv/:filename', function(req, res) {
-    let filename = path.join(config.app.data_dir, req.params.filename);
+router.get('/json/:filename', function(req, res) {
+    let filename = path.join(config.app.data_dir, req.params.filename + '.json');
 
     if(fs.existsSync(filename)) {
         res.download(filename, function(err) {

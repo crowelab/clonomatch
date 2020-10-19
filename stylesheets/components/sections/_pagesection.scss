@@ -43,6 +43,10 @@
   }
 }
 
+.ReactTable .rt-thead {
+  overflow-x: scroll;
+}
+
 #clonomatch-section-options {
   display: flex;
   flex-direction: row;

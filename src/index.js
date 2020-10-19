@@ -4,5 +4,8 @@ import './index.css';
 import App from './App';
 import { unregister } from './registerServiceWorker';
 
+let Papa = require("papaparse");
+Papa.SCRIPT_PATH = "./Library/External/papaparse.js";
+
 unregister();
 ReactDOM.render(<App />, document.getElementById('root'));
