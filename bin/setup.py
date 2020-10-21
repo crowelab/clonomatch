@@ -22,8 +22,8 @@ else:
 
 if not path.exists(config['app']['sibsearch']['db_dir']):
   os.makedirs(config['app']['sibsearch']['db_dir'])
-if not path.exists(config['app']['clonotypes']['dir']):
-  os.makedirs(config['app']['clonotypes']['dir'])
+# if not path.exists(config['app']['clonotypes']['dir']):
+#   os.makedirs(config['app']['clonotypes']['dir'])
 
 print("config file loaded")
 
