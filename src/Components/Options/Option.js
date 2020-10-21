@@ -41,14 +41,10 @@ class Option extends Component {
                 value: value
             }, this.props.onUpdate(this.props.alias, value));
     	} else if(this.props.type === OPTION_TYPES.SELECT) {
-    		// let value = evt.value;
-    		// console.log("Change event:", evt);
             this.setState({
                 value: evt
             }, this.props.onUpdate(this.props.alias, evt));
 		} else if(this.props.type === OPTION_TYPES.SELECT_MULTI) {
-            // let value = evt.value;
-            // console.log("Change event:", evt);
             this.setState({
                 value: evt
             }, this.props.onUpdate(this.props.alias, evt));
@@ -56,7 +52,7 @@ class Option extends Component {
     	    let evtList = evt;
     	    let value = [];
     	    evtList.map(obj => value.push(obj.value));
-            // let value = evt;
+
             this.setState({
                 value: value
             }, this.props.onUpdate(this.props.alias, value));
@@ -178,13 +174,15 @@ class Option extends Component {
 					<ReactSelect
                         name={this.props.alias + "-input"}
                         id={this.props.alias + "-input"}
-						style={this.props.style}
+						styles={this.props.style}
                         className={"full-width"}
 						isSearchable={true}
                         isClearable={true}
 						isDisabled={this.props.disabled}
                         options={this.props.values}
-                        onChange={this.onChange}/>
+						value={this.props.default}
+                        onChange={this.onChange}
+					/>
                 </div>
                 break;
             case OPTION_TYPES.SELECT_MULTI:
@@ -193,14 +191,16 @@ class Option extends Component {
                     <ReactSelect
                         name={this.props.alias + "-input"}
                         id={this.props.alias + "-input"}
-                        style={this.props.style}
+                        styles={this.props.style}
                         className={"full-width"}
                         isSearchable={true}
                         isClearable={true}
 						isMulti
                         isDisabled={this.props.disabled}
                         options={this.props.values}
-                        onChange={this.onChange}/>
+						value={this.state.value}
+                        onChange={this.onChange}
+					/>
                 </div>
                 break;
             case OPTION_TYPES.CREATABLE_SELECT:

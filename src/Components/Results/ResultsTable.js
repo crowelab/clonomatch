@@ -3,10 +3,18 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import {AIRR_CELL_PROCESSING_FIELDS, AIRR_NUCLEIC_ACID_FIELDS, AIRR_REPERTOIRE_FIELDS, AIRR_SEQUENCING_FIELDS,
     AIRR_STUDY_FIELDS, AIRR_SUBJECT_FIELDS, AIRR_REARRANGEMENT_FIELDS} from '../../Library/Enums.js';
+import Option, {OPTION_TYPES} from "../Options/Option";
+import {CHAIN_TYPE} from "../Options/ClonoMatchOptions";
 // from '../../Library'
 
 const MAX_PAGE_SIZE = 15;
 const ADDITIONAL_FIELDS = ["match_cdr3", "query_cdr3", "percent_identity", "coverage", "somatic_variants"];
+
+const HEADERS = [
+
+];
+
+
 
 /*
 Additional field for the Columns
@@ -18,15 +26,12 @@ const additionalFields = {
         show: true,
         minWidth: 200,
         Cell: (row) => {
-            // console.log("row:",row);
-
             let spanList = [];
             let queryCdr3 = row.original.query_cdr3;
             let ogCdr3 = row.original.original_cdr3;
             let matchCdr3 = row.original.match_cdr3;
 
             let cdr3Split = ogCdr3.split(queryCdr3.replace(new RegExp('-', 'g'),''));
-            // console.log("cdr3_split:", cdr3Split);
 
             for(let i = 0; i < cdr3Split[0].length; i++) {
                 spanList.push(<span style={{color: '#ddd', fontWeight: 'bold'}}>{"-"}</span>)
@@ -65,14 +70,12 @@ const additionalFields = {
     },
     "coverage": {
         show: true,
-        // minWidth: 130
     },
     "somatic_variants": {
         show: true,
         minWidth: 170
     }
 }
-
 
 const makeCapital = (str) => {
     let retval = '';
@@ -84,7 +87,9 @@ const makeCapital = (str) => {
     return retval.trim();
 };
 const makeKeys = () => {
-    let retval = {};
+    let keys = {};
+    let options = [];
+    let def = [];
 
     let template = {
         minWidth: 130,
@@ -104,39 +109,86 @@ const makeKeys = () => {
 
         if(field in additionalFields) {
             column = Object.assign(column, additionalFields[field]);
+            def.push({label: makeCapital(field), value: field})
+            options.push({label: makeCapital(field), value: field});
+        } else {
+            options.push({label: makeCapital(field), value: field})
         }
 
-        // retval.push(column);
-        retval[field] = column;
+        keys[field] = column;
     }
 
-    return retval;
+    return [keys, def, options];
 }
 // let KEYS =
 
 class ResultsTable extends Component {
     constructor(props) {
         super(props);
+
+        let options = makeKeys();
+
+        let keys = options[0];
+        this.defaultKeys = options[1];
+        this.options = options[2];
+
+        console.log("initvals:",keys,this.defaultKeys,this.options);
+        // let shownKeys = [];
+        // for(let def of this.defaultKeys) {
+        //     shownKeys.push(def.value);
+        // }
+
         this.state = {
             detailOpen: false,
-            keys: makeKeys(),
+            keys: keys,
+            // keysShown: shownKeys,
             selectedResults: {}
         }
     }
 
-    toggleFieldShow = (field) => {
-        this.setState(prevState => ({
-            keys: {
-                ...prevState.keys,
-                field: !prevState.keys[field]
+    toggleFields = (fields) => {
+        let newKeys = Object.assign({}, this.state.keys);
+        let newKeysShown = [];
+        console.log("FIELDS:",fields);
+        for(let field of fields) {
+            newKeysShown.push(field.value);
+            console.log("FIELD:",field);
+        }
+
+        for(let key in newKeys) {
+            if(!newKeysShown.includes(key)) {
+                newKeys[key].show = false
+            } else {
+                newKeys[key].show = true
             }
-        }))
+        }
+
+        this.setState({
+            keys: newKeys
+        });
+
     };
 
     render() {
         return <div className={"full-width flex-column"}>
             <div>
-
+                <Option
+                    onUpdate={(alias, val) => {
+                        console.log("updateVal:", alias, val);
+                        this.toggleFields(val);
+                    }}
+                    name={'Show Fields'}
+                    required={false}
+                    type={OPTION_TYPES.SELECT_MULTI}
+                    default={this.defaultKeys}
+                    values={this.options}
+                    style={{option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+                            return {
+                                ...styles,
+                                color: '#333'
+                            }
+                    }}}
+                    />
             </div>
             <div className={"full-width scrollable"}>
                 <ReactTable
