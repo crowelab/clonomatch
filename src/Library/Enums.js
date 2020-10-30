@@ -1,6 +1,7 @@
 // let baseURL = ;
 
 export const BASE_URL = process.env.REACT_APP_URL;
+console.log("BASEURL:",BASE_URL);
 
 /*
     This is an enormous amount of constants we need to keep track of the potential columns, but they all correspond to

@@ -37,14 +37,14 @@ let v_families = [
     {label: 'IGHV1-68', value: 'IGHV1-68', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV1-69', value: 'IGHV1-69', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV1-69-2', value: 'IGHV1-69-2', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV1-69D', value: 'IGHV1-69D', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV1-69D', value: 'IGHV1-69D', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV1-8', value: 'IGHV1-8', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV1-NL1', value: 'IGHV1-NL1', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV1-NL1', value: 'IGHV1-NL1', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV2-10', value: 'IGHV2-10', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV2-26', value: 'IGHV2-26', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV2-5', value: 'IGHV2-5', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV2-70', value: 'IGHV2-70', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV2-70D', value: 'IGHV2-70D', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV2-70D', value: 'IGHV2-70D', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-11', value: 'IGHV3-11', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-13', value: 'IGHV3-13', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-15', value: 'IGHV3-15', type: CHAIN_TYPE.BCELL_HEAVY},
@@ -54,7 +54,7 @@ let v_families = [
     {label: 'IGHV3-21', value: 'IGHV3-21', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-22', value: 'IGHV3-22', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-23', value: 'IGHV3-23', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV3-23D', value: 'IGHV3-23D', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV3-23D', value: 'IGHV3-23D', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-25', value: 'IGHV3-25', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-29', value: 'IGHV3-29', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-30', value: 'IGHV3-30', type: CHAIN_TYPE.BCELL_HEAVY},
@@ -68,7 +68,7 @@ let v_families = [
     {label: 'IGHV3-38-3', value: 'IGHV3-38-3', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-41', value: 'IGHV3-41', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-43', value: 'IGHV3-43', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV3-43D', value: 'IGHV3-43D', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV3-43D', value: 'IGHV3-43D', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-47', value: 'IGHV3-47', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-48', value: 'IGHV3-48', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-49', value: 'IGHV3-49', type: CHAIN_TYPE.BCELL_HEAVY},
@@ -78,7 +78,7 @@ let v_families = [
     {label: 'IGHV3-62', value: 'IGHV3-62', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-63', value: 'IGHV3-63', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-64', value: 'IGHV3-64', type: CHAIN_TYPE.BCELL_HEAVY},
-    {label: 'IGHV3-64D', value: 'IGHV3-64D', type: CHAIN_TYPE.BCELL_HEAVY},
+    // {label: 'IGHV3-64D', value: 'IGHV3-64D', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-66', value: 'IGHV3-66', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-69-1', value: 'IGHV3-69-1', type: CHAIN_TYPE.BCELL_HEAVY},
     {label: 'IGHV3-7', value: 'IGHV3-7', type: CHAIN_TYPE.BCELL_HEAVY},
@@ -119,13 +119,13 @@ let v_families = [
     {label: 'IGKV1-6', value: 'IGKV1-6', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV1-8', value: 'IGKV1-8', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV1-9', value: 'IGKV1-9', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-12', value: 'IGKV1D-12', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-13', value: 'IGKV1D-13', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-16', value: 'IGKV1D-16', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-17', value: 'IGKV1D-17', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-42', value: 'IGKV1D-42', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-43', value: 'IGKV1D-43', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV1D-8', value: 'IGKV1D-8', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-12', value: 'IGKV1D-12', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-13', value: 'IGKV1D-13', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-16', value: 'IGKV1D-16', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-17', value: 'IGKV1D-17', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-42', value: 'IGKV1D-42', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-43', value: 'IGKV1D-43', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV1D-8', value: 'IGKV1D-8', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV2-18', value: 'IGKV2-18', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV2-24', value: 'IGKV2-24', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV2-28', value: 'IGKV2-28', type: CHAIN_TYPE.BCELL_LIGHT_K},
@@ -133,23 +133,23 @@ let v_families = [
     {label: 'IGKV2-30', value: 'IGKV2-30', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV2-4', value: 'IGKV2-4', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV2-40', value: 'IGKV2-40', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV2D-18', value: 'IGKV2D-18', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV2D-24', value: 'IGKV2D-24', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV2D-26', value: 'IGKV2D-26', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV2D-29', value: 'IGKV2D-29', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV2D-30', value: 'IGKV2D-30', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV2D-18', value: 'IGKV2D-18', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV2D-24', value: 'IGKV2D-24', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV2D-26', value: 'IGKV2D-26', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV2D-29', value: 'IGKV2D-29', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV2D-30', value: 'IGKV2D-30', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV3-11', value: 'IGKV3-11', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV3-15', value: 'IGKV3-15', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV3-20', value: 'IGKV3-20', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV3-7', value: 'IGKV3-7', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV3D-11', value: 'IGKV3D-11', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV3D-15', value: 'IGKV3D-15', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV3D-20', value: 'IGKV3D-20', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV3D-11', value: 'IGKV3D-11', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV3D-15', value: 'IGKV3D-15', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV3D-20', value: 'IGKV3D-20', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV4-1', value: 'IGKV4-1', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV5-2', value: 'IGKV5-2', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV6-21', value: 'IGKV6-21', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV6D-21', value: 'IGKV6D-21', type: CHAIN_TYPE.BCELL_LIGHT_K},
-    {label: 'IGKV6D-41', value: 'IGKV6D-41', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV6D-21', value: 'IGKV6D-21', type: CHAIN_TYPE.BCELL_LIGHT_K},
+    // {label: 'IGKV6D-41', value: 'IGKV6D-41', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGKV7-3', value: 'IGKV7-3', type: CHAIN_TYPE.BCELL_LIGHT_K},
     {label: 'IGLV1-36', value: 'IGLV1-36', type: CHAIN_TYPE.BCELL_LIGHT_L},
     {label: 'IGLV1-40', value: 'IGLV1-40', type: CHAIN_TYPE.BCELL_LIGHT_L},
@@ -203,7 +203,7 @@ let v_families = [
     {label: 'TRAV12-3', value: 'TRAV12-3', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV13-1', value: 'TRAV13-1', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV13-2', value: 'TRAV13-2', type: CHAIN_TYPE.TCELL_ALPHA},
-    {label: 'TRAV14/DV4', value: 'TRAV14/DV4', type: CHAIN_TYPE.TCELL_ALPHA},
+    // {label: 'TRAV14/DV4', value: 'TRAV14/DV4', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV16', value: 'TRAV16', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV17', value: 'TRAV17', type: CHAIN_TYPE.TCELL_ALPHA},
     {label: 'TRAV19', value: 'TRAV19', type: CHAIN_TYPE.TCELL_ALPHA},
@@ -435,7 +435,7 @@ export default class ClonoMatchOptions extends Component {
     render() {
         return <div>
             <div className={"flex-row centered-horiz margin-medium"}>
-                <span className={"margin-small"}>Search By Clonotype</span>
+                <span className={"margin-small"}>Single Clonotype Search</span>
                 <Switch
                     onChange={() => {
                         if(this.state.searchType === SEARCH_TYPE.V3J) this.onUpdateOptions('searchType', SEARCH_TYPE.FILE);
@@ -446,7 +446,7 @@ export default class ClonoMatchOptions extends Component {
                         else this.onUpdateOptions('searchType', SEARCH_TYPE.V3J);
                     }}
                 />
-                <span className={"margin-small"}>Bulk Search</span>
+                <span className={"margin-small"}>Search Multiple Clonotypes From File</span>
             </div>
 
             <div id={"clonomatch-section-options"} className={"margin-huge"}>
@@ -459,6 +459,7 @@ export default class ClonoMatchOptions extends Component {
                         <Option
                             alias={'v'}
                             name={'V Family'}
+                            placeholder={"IGHV1-2"}
                             style={{borderRadius: '0px'}}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.props.disabled}
@@ -470,6 +471,7 @@ export default class ClonoMatchOptions extends Component {
                             alias={'j'}
                             name={'J Family'}
                             style={{borderRadius: '0px'}}
+                            placeholder={"IGHJ1"}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.props.disabled}
                             required={false}
@@ -499,7 +501,7 @@ export default class ClonoMatchOptions extends Component {
                         <label></label>
                         <input id="clonomatch-file-input" type="file" onChange={() => {
                             let fileInput = document.getElementById("clonomatch-file-input");
-                            console.log("file:",fileInput);
+                            // console.log("file:",fileInput);
                             this.onUpdateOptions('inputFile', fileInput.files[0]);
                         }} />
                     </div>

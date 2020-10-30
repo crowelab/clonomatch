@@ -175,6 +175,7 @@ class Option extends Component {
                         name={this.props.alias + "-input"}
                         id={this.props.alias + "-input"}
 						styles={this.props.style}
+						placeholder={this.props.placeholder}
                         className={"full-width"}
 						isSearchable={true}
                         isClearable={true}

@@ -1460,17 +1460,13 @@ footer {
 .page-section-container#clonomatch-section-container {
   color: #FFF;
   background-image: linear-gradient(#30bced, #d9eff7);
-  min-height: 95vh;
+  min-height: 100vh;
 }
 .page-section-container#documentation-section-container {
   background-color: #d9eff7;
 }
 .page-section-container#links-section-container {
   background-image: linear-gradient(#d9eff7, #f9f9ff);
-}
-
-.page-section {
-  max-width: 1024px;
 }
 
 #clonomatch-section-header {
@@ -1488,10 +1484,18 @@ footer {
   font-size: 1.5em;
 }
 
+.ReactTable .rt-thead {
+  overflow-x: scroll;
+}
+
 #clonomatch-section-options {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+#links-section-container {
+  max-width: 800px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1503,6 +1507,10 @@ footer {
 @media only screen and (max-width: 800px) {
   #clonomatch-section-results {
     display: none;
+  }
+
+  #links-section-container {
+    max-width: 80%;
   }
 }
 .clonomatch-element {
@@ -1602,6 +1610,22 @@ button:active {
   transform: scale(0.99);
 }
 
+#help-button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: #FFF;
+  width: 100px;
+  height: 100px;
+  background: none;
+  z-index: 1;
+  font-size: 3em;
+  border-radius: 1em;
+}
+#help-button:hover, #help-button:focus {
+  background: rgba(45, 180, 229, 0.8);
+}
+
 .options {
   width: 90%;
   display: flex;
@@ -1661,7 +1685,6 @@ button:active {
 }
 
 .clonomatch-results-table {
-  max-width: 1024px;
   background-color: #fff;
   color: #000;
   border: 0 !important;

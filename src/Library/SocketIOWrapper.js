@@ -1,5 +1,5 @@
 import openSocket from "socket.io-client";
-import { BASE_URL} from "./Enums";
+import { BASE_URL } from "./Enums";
 
 class SocketIOWrapper {
     constructor() {

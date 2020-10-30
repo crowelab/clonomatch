@@ -171,12 +171,9 @@ class ResultsTable extends Component {
 
     render() {
         return <div className={"full-width flex-column"}>
-            <div>
+            <div className={"full-width flex-row centered-horiz"}>
                 <Option
-                    onUpdate={(alias, val) => {
-                        console.log("updateVal:", alias, val);
-                        this.toggleFields(val);
-                    }}
+                    onUpdate={(alias, val) => { this.toggleFields(val); }}
                     name={'Show Fields'}
                     required={false}
                     type={OPTION_TYPES.SELECT_MULTI}

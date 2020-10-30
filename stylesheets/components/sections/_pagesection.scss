@@ -9,7 +9,7 @@
     //background-position: left bottom;
     //background-size: cover;
     //background-repeat: no-repeat;
-    min-height: 95vh;
+    min-height: 100vh;
   }
   &#documentation-section-container {
     background-color: #d9eff7;
@@ -18,12 +18,6 @@
     //background-color: #d9eff7;
     background-image: linear-gradient(#d9eff7, #f9f9ff);
   }
-
-}
-
-.page-section {
-  max-width: 1024px;
-
 
 }
 
@@ -55,6 +49,9 @@
   //background-size: contain;
 }
 
+#links-section-container {
+  max-width: 800px;
+}
 
 @media only screen and (max-width: 600px) {
   #clonomatch-section-options {
@@ -66,5 +63,9 @@
 @media only screen and (max-width: 800px) {
   #clonomatch-section-results {
     display: none;
+  }
+
+  #links-section-container {
+    max-width: 80%;
   }
 }

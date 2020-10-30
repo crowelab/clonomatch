@@ -29,6 +29,7 @@
     "react-table": "^6.11.5",
     "react-toastify": "^4.5.2",
     "react-transition-group": "^2.9.0",
+    "reactjs-popup": "^2.0.4",
     "send": "^0.16.2",
     "socket.io": "^2.3.0",
     "tmp": "^0.2.1",
