@@ -46,7 +46,7 @@ let runSibsearch = (body, res) => {
                 });
             } else {
                 console.log("code", code)
-                res.send(500);
+                res.sendStatus(500);
             }
         });
     });
@@ -57,9 +57,12 @@ let runSibsearchBulk = (body) => {
         let files = [];
 
         for(let row of body.data) {
+            //if (row.length < 3) { reject('not a valid csv') }
+            
             if('cdr3' in row) {
                 continue
-            }
+            } 
+            
 
             let fileObject = tmp.fileSync({prefix: 'clonomatch-', postfix: '.json', keep: true});
             let args = [config.app.sibsearch.executable, '--cdr3', row[2],
@@ -126,12 +129,21 @@ router.post('/random', function(req, res) {
     MongoWrapper.getRandomSequence((err, results) => {
         if(err) {
             console.error("Error getting Random V3J Match:", err);
-            res.send(500);
+            res.sendStatus(500);
         } else {
+            let result = results[0];
+            let v = '';
+            let j = '';
+            if(result.cdr3_aa == null || result.cdr3_aa === '') {
+                console.error("Error getting a Random V3J Match: No CDR3 in result");
+            }
+            if(result.v_call != null) { v = result.v_call.split('*')[0] }
+            if(result.j_call != null) { j = result.j_call.split('*')[0] }
+
             runSibsearch({
-                v: results[0].v_call.split('*')[0],
-                j: results[0].j_call.split('*')[0],
-                cdr3: results[0].cdr3_aa,
+                v: v,
+                j: j,
+                cdr3: result.cdr3_aa,
                 pid: body.pid,
                 coverage: body.coverage
             }, res);

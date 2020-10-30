@@ -66,10 +66,14 @@ def run_search(args, config, queryfile, vjlength):
             }
 
     v3js = {}
+    print('getting rows...')
     with MongoClient(config['database']['mongo_url']) as client, NamedTemporaryFile(mode='w', delete=False) as fout:
         col = client[config['database']['mongo_database']][config['database']['mongo_collection']]
         rows = col.find({'_id': {'$in': [ObjectId(x) for x in out.keys()]} })
         for row in rows:
+            if 'v_call' not in row or row['v_call'] == '' or 'j_call' not in row or row['j_call'] == '':
+              continue
+
             v3j = row['v_call'].split('*')[0] + '_' + row['j_call'].split('*')[0] + '_' + row['cdr3_aa']
             if v3j not in v3js:
                 v3js[v3j] = []
@@ -110,6 +114,7 @@ if __name__ == '__main__':
         tmpfiles = p.map(run_search_partial, multiprocessing_args)
 
     os.remove(queryfile)
+    print("Got results!")
     FIRST = True
     with open(args.out, 'w') as fout:
         fout.write('[\n')
