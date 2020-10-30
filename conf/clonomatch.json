@@ -9,13 +9,13 @@
     },
     "url": {
       "development": "http://localhost:8888",
-      "production": "https://clonomatch.accre.vanderbilt.edu"
+      "production": "http://localhost:3000"
     }
   },
   "database": {
-    "mongo_url": "mongodb://127.0.0.1:37200",
-    "mongo_collection": "public",
-    "mongo_database": "sequences"
+    "mongo_url": "mongodb://127.0.0.1",
+    "mongo_collection": "seqs",
+    "mongo_database": "public"
   },
   "sshtunnel": {
     "development": {},

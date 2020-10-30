@@ -1623,7 +1623,7 @@ button:active {
   border-radius: 1em;
 }
 #help-button:hover, #help-button:focus {
-  background: rgba(45, 180, 229, 0.8);
+  background: rgba(47, 237, 136, 0.8);
 }
 
 .options {
