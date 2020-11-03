@@ -33,9 +33,11 @@ let runSibsearch = (body, res) => {
 
                 let v3j = body.v + '_' + body.j + '_' + body.cdr3;
                 let outname = v3j + '_results' + crypto.randomBytes(3).toString('hex');
-                fs.writeFileSync(path.join(config.app.data_dir,outname + '.json'), JSON.stringify(results));
-                const csvParser = new Parser();
-                fs.writeFileSync(path.join(config.app.data_dir,outname + '.csv'), csvParser.parse(results));
+                if(results.length > 0) {
+                    fs.writeFileSync(path.join(config.app.data_dir,outname + '.json'), JSON.stringify(results));
+                    const csvParser = new Parser();
+                    fs.writeFileSync(path.join(config.app.data_dir,outname + '.csv'), csvParser.parse(results));
+                }
 
                 res.json({
                     v: body.v,
