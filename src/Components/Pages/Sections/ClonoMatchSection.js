@@ -4,7 +4,7 @@ import { BarLoader } from 'react-spinners';
 import {CSSTransition} from "react-transition-group";
 import ResultsTable from "../../Results/ResultsTable";
 import { toast } from 'react-toastify';
-import ClonoMatchOptions, {CHAIN_TYPE, SEARCH_TYPE} from "../../Options/ClonoMatchOptions";
+import ClonoMatchOptions, {SEARCH_TYPE} from "../../Options/ClonoMatchOptions";
 import Papa from "papaparse";
 import SocketIOWrapper from "../../../Library/SocketIOWrapper";
 

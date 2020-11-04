@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import Creatable from 'react-select/lib/Creatable';
-// import { OPTION_TYPES } from './OptionsGrid'
 
 export const OPTION_TYPES = {
     CREATABLE_SELECT: 'creatable_select',

@@ -1,6 +1,4 @@
 import React from 'react';
-// import BaseURL from '../../Library/BaseURL';
-
 
 const Header = () => {
     return (

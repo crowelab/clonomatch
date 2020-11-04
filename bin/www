@@ -12,7 +12,7 @@ const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const { Parser } = require('json2csv');
-const { execSync, spawn, spawnSync } = require('child_process');
+const { spawnSync } = require('child_process');
 const config = require(path.join(global.appRoot, process.env.CONF));
 
 
@@ -37,7 +37,6 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
-// const io = require("socket.io")(server);
 const io = require("socket.io")(server, {
     handlePreflightRequest: (req, res) => {
         const headers = {
@@ -49,8 +48,6 @@ const io = require("socket.io")(server, {
         res.end();
     }
 });
-// io.set('origins', 'https://clonomatch.accre.vanderbilt.edu')
-// io.set('origins', '*:*')
 io.on('connection', (client) => {
     console.log("Connection with client:", client.id);
 

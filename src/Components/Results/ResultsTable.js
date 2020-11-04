@@ -4,17 +4,9 @@ import 'react-table/react-table.css';
 import {AIRR_CELL_PROCESSING_FIELDS, AIRR_NUCLEIC_ACID_FIELDS, AIRR_REPERTOIRE_FIELDS, AIRR_SEQUENCING_FIELDS,
     AIRR_STUDY_FIELDS, AIRR_SUBJECT_FIELDS, AIRR_REARRANGEMENT_FIELDS} from '../../Library/Enums.js';
 import Option, {OPTION_TYPES} from "../Options/Option";
-import {CHAIN_TYPE} from "../Options/ClonoMatchOptions";
-// from '../../Library'
 
 const MAX_PAGE_SIZE = 15;
 const ADDITIONAL_FIELDS = ["match_cdr3", "query_cdr3", "percent_identity", "coverage", "somatic_variants"];
-
-const HEADERS = [
-
-];
-
-
 
 /*
 Additional field for the Columns
@@ -88,7 +80,8 @@ const makeCapital = (str) => {
 };
 const makeKeys = () => {
     let keys = {};
-    let options = [];
+    // let options = [];
+    let options = {};
     let def = [];
 
     let template = {
@@ -110,9 +103,10 @@ const makeKeys = () => {
         if(field in additionalFields) {
             column = Object.assign(column, additionalFields[field]);
             def.push({label: makeCapital(field), value: field})
-            options.push({label: makeCapital(field), value: field});
+            // options.push({label: makeCapital(field), value: field});
+            options[field] = {label: makeCapital(field), value: field};
         } else {
-            options.push({label: makeCapital(field), value: field})
+            options[field] = {label: makeCapital(field), value: field};
         }
 
         keys[field] = column;
@@ -120,7 +114,6 @@ const makeKeys = () => {
 
     return [keys, def, options];
 }
-// let KEYS =
 
 class ResultsTable extends Component {
     constructor(props) {
@@ -132,16 +125,9 @@ class ResultsTable extends Component {
         this.defaultKeys = options[1];
         this.options = options[2];
 
-        console.log("initvals:",keys,this.defaultKeys,this.options);
-        // let shownKeys = [];
-        // for(let def of this.defaultKeys) {
-        //     shownKeys.push(def.value);
-        // }
-
         this.state = {
             detailOpen: false,
             keys: keys,
-            // keysShown: shownKeys,
             selectedResults: {}
         }
     }
@@ -149,10 +135,8 @@ class ResultsTable extends Component {
     toggleFields = (fields) => {
         let newKeys = Object.assign({}, this.state.keys);
         let newKeysShown = [];
-        console.log("FIELDS:",fields);
         for(let field of fields) {
             newKeysShown.push(field.value);
-            console.log("FIELD:",field);
         }
 
         for(let key in newKeys) {
@@ -170,6 +154,21 @@ class ResultsTable extends Component {
     };
 
     render() {
+        let options = [];
+        if(this.props.results == null || this.props.results.length === 0) {
+            options = this.defaultKeys;
+        } else {
+            let seenOptions = [];
+            for(let result of this.props.results) {
+                for(let key of Object.keys(result).sort()) {
+                    if(!seenOptions.includes(key)) {
+                        options.push({label: makeCapital(key), value: key});
+                        seenOptions.push(key);
+                    }
+                }
+            }
+        }
+
         return <div className={"full-width flex-column"}>
             <div className={"full-width flex-row centered-horiz"}>
                 <Option
@@ -178,7 +177,7 @@ class ResultsTable extends Component {
                     required={false}
                     type={OPTION_TYPES.SELECT_MULTI}
                     default={this.defaultKeys}
-                    values={this.options}
+                    values={options}
                     style={{option: (styles, { data, isDisabled, isFocused, isSelected }) => {
                             return {
                                 ...styles,

@@ -59,12 +59,9 @@ let runSibsearchBulk = (body) => {
         let files = [];
 
         for(let row of body.data) {
-            //if (row.length < 3) { reject('not a valid csv') }
-            
             if('cdr3' in row) {
                 continue
             } 
-            
 
             let fileObject = tmp.fileSync({prefix: 'clonomatch-', postfix: '.json', keep: true});
             let args = [config.app.sibsearch.executable, '--cdr3', row[2],
@@ -136,8 +133,11 @@ router.post('/random', function(req, res) {
             let result = results[0];
             let v = '';
             let j = '';
+            let cdr3_aa = '';
             if(result.cdr3_aa == null || result.cdr3_aa === '') {
                 console.error("Error getting a Random V3J Match: No CDR3 in result");
+            } else {
+                cdr3_aa = result.cdr3_aa;
             }
             if(result.v_call != null) { v = result.v_call.split('*')[0] }
             if(result.j_call != null) { j = result.j_call.split('*')[0] }
@@ -145,7 +145,7 @@ router.post('/random', function(req, res) {
             runSibsearch({
                 v: v,
                 j: j,
-                cdr3: result.cdr3_aa,
+                cdr3: cdr3_aa,
                 pid: body.pid,
                 coverage: body.coverage
             }, res);

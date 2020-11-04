@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Switch from "rc-switch";
 import {CSSTransition} from "react-transition-group";
 import Option, {OPTION_TYPES} from "./Option";
-// import React from "react";
 
 export const CHAIN_TYPE = {
     BCELL_HEAVY: 'bcell_heavy',
@@ -403,11 +402,12 @@ export default class ClonoMatchOptions extends Component {
         let stateChange = {};
 
         if (['v', 'j'].includes(alias)) {
-            if (option == null || Array.isArray(option)) {
+            if (option == null || Array.isArray(option) || option === '') {
                 stateChange[alias] = '';
 
-                if ((alias === 'v' && this.state.j === '') ||
-                    (alias === 'j' && this.state.v === '')) {
+                console.log("Here!!!")
+                if ((alias === 'v' && (this.state.j === '' || this.state.j == null)) ||
+                    (alias === 'j' && (this.state.v === '' || this.state.v == null))) {
                     stateChange['chainType'] = CHAIN_TYPE.NONE;
                 }
             } else {
@@ -433,6 +433,21 @@ export default class ClonoMatchOptions extends Component {
     };
 
     render() {
+        let v_fam = [];
+        let j_fam = [];
+
+        if(this.state.chainType === CHAIN_TYPE.NONE) {
+            v_fam = v_families;
+            j_fam = j_families;
+        } else {
+            for(let fam of v_families) {
+                if(this.state.chainType === fam.type) v_fam.push(fam);
+            }
+            for(let fam of j_families) {
+                if(this.state.chainType === fam.type) j_fam.push(fam);
+            }
+        }
+
         return <div>
             <div className={"flex-row centered-horiz margin-medium"}>
                 <span className={"margin-small"}>Single Clonotype Search</span>
@@ -465,7 +480,7 @@ export default class ClonoMatchOptions extends Component {
                             disabled={this.props.disabled}
                             required={false}
                             onUpdate={this.onUpdateOptions}
-                            values={v_families}
+                            values={v_fam}
                         />
                         <Option
                             alias={'j'}
@@ -476,7 +491,7 @@ export default class ClonoMatchOptions extends Component {
                             disabled={this.props.disabled}
                             required={false}
                             onUpdate={this.onUpdateOptions}
-                            values={j_families}
+                            values={j_fam}
                         />
                         <Option
                             alias={'cdr3'}
@@ -501,7 +516,6 @@ export default class ClonoMatchOptions extends Component {
                         <label></label>
                         <input id="clonomatch-file-input" type="file" onChange={() => {
                             let fileInput = document.getElementById("clonomatch-file-input");
-                            // console.log("file:",fileInput);
                             this.onUpdateOptions('inputFile', fileInput.files[0]);
                         }} />
                     </div>
@@ -541,6 +555,5 @@ export default class ClonoMatchOptions extends Component {
 
 ClonoMatchOptions.propTypes = {
     onUpdateOptions: PropTypes.func.isRequired,
-    // processStatus: PropTypes.node.isRequired
     disabled: PropTypes.bool.isRequired
 }
