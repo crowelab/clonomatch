@@ -120,5 +120,7 @@ npm run sass
 
 ## Links
 [PyIR sequence analyzer] ("https://github.com/crowelab/PyIR"), used to process sequences.
+
 BCell HIP sequences referenced in [Nature] ("https://www.nature.com/articles/s41586-019-0934-8").
+
 This project was bootstrapped with [Create React App] (https://github.com/facebookincubator/create-react-app) Using React Scripts v. 2.1.3.
