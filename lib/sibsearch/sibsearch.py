@@ -65,26 +65,29 @@ def run_search(args, config, queryfile, vjlength):
                 'coverage': "{:.2f}".format(coverage)
             }
 
-    v3js = {}
-    print('getting rows...')
-    with MongoClient(config['database']['mongo_url']) as client, NamedTemporaryFile(mode='w', delete=False) as fout:
-        col = client[config['database']['mongo_database']][config['database']['mongo_collection']]
-        rows = col.find({'_id': {'$in': [ObjectId(x) for x in out.keys()]} })
-        for row in rows:
-            if 'v_call' not in row or row['v_call'] == '' or 'j_call' not in row or row['j_call'] == '':
-              continue
+    if len(out.keys()) > 0:
+        v3js = {}
+        print('getting rows...')
+        with MongoClient(config['database']['mongo_url'], maxPoolSize=1) as client, NamedTemporaryFile(mode='w', delete=False) as fout:
+            col = client[config['database']['mongo_database']][config['database']['mongo_collection']]
+            rows = col.find({'_id': {'$in': [ObjectId(x) for x in out.keys()]} })
+            for row in rows:
+                if 'v_call' not in row or row['v_call'] == '' or 'j_call' not in row or row['j_call'] == '':
+                    continue
 
-            v3j = row['v_call'].split('*')[0] + '_' + row['j_call'].split('*')[0] + '_' + row['cdr3_aa']
-            if v3j not in v3js:
-                v3js[v3j] = []
-            v3js[v3j].append(row)
+                v3j = row['v_call'].split('*')[0] + '_' + row['j_call'].split('*')[0] + '_' + row['cdr3_aa']
+                if v3j not in v3js:
+                    v3js[v3j] = []
+                v3js[v3j].append(row)
 
-        for v3j in v3js:
-            for row in v3js[v3j]:
-                row['somatic_variants'] = len(v3js[v3j])
-                fout.write(json_util.dumps({**out[str(row['_id'])], **row}) + '\n')
+            for v3j in v3js:
+                for row in v3js[v3j]:
+                    row['somatic_variants'] = len(v3js[v3j])
+                    fout.write(json_util.dumps({**out[str(row['_id'])], **row}) + '\n')
 
         return fout.name
+    else:
+        return ''
 
 run_search_partial = partial(run_search, args, config, queryfile)
 
@@ -119,6 +122,8 @@ if __name__ == '__main__':
     with open(args.out, 'w') as fout:
         fout.write('[\n')
         for fname in tmpfiles:
+            if fname == '':
+                continue
             with open(fname) as fin:
                 for line in fin:
                     if FIRST:
