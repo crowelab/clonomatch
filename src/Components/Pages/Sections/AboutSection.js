@@ -3,16 +3,6 @@ import MetadataSummaryTable from "../../Metadata/MetadataSummaryTable";
 // import PropTypes from 'prop-types';
 
 class AboutSection extends Component {
-    componentDidMount() {
-        let layout = document.getElementById("layout");
-        layout.style.filter = 'blur(2px)';
-    }
-
-    componentWillUnmount() {
-        let layout = document.getElementById("layout");
-        layout.style.filter = '';
-    }
-
     render() {
         return <div id={"about-section-container"} className={"page-section-container flex-column centered-horiz"}>
             <div id={"about-section"} className={"page-section flex-column centered full-width"}>
@@ -25,7 +15,7 @@ class AboutSection extends Component {
                     downloadable, and exact match searches include aligned full-length sequence strings.
                 </p>
 
-                <h2>Database Statistics</h2>
+                <h2>ClonoMatch Data Statistics</h2>
                 <MetadataSummaryTable />
 
                 <h3>Links</h3>

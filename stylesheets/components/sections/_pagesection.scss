@@ -38,26 +38,35 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  //background: url(images/bg_patterns/bg3.png) left;
-  //background-size: contain;
 }
 
 #about-section-container {
   background-color: #d9eff7;
-  //width: 90%;
   top: 0px;
-  max-width: 1280px;
-  border-radius: 1em;
-  //height: 100%;
+  width: 100%;
+  //max-width: 1280px;
+  //border-radius: 1em;
   padding: 1em;
-  height: 100px;
-  //overflow-y: scroll;
-
+  //height: 100px;
 }
 
 #about-section {
+  max-width: 1024px;
   overflow-y: scroll;
 }
+
+#help-section-container {
+  background-color: #d9eff7;
+  top: 0px;
+  max-width: 1280px;
+  border-radius: 1em;
+  padding: 1em;
+  //height: 100px;
+}
+
+//#help-section {
+//  overflow-y: scroll;
+//}
 
 #main-links-section {
   background-color: #d9eff7;

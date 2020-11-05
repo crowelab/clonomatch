@@ -12,6 +12,7 @@ const ADDITIONAL_FIELDS = ["match_cdr3", "query_cdr3", "percent_identity", "cove
 Additional field for the Columns
  */
 const additionalFields = {
+    "submitted_by": {show: true},
     "v_call": { show: true },
     "j_call": { show: true },
     "match_cdr3": {
@@ -159,7 +160,32 @@ class ResultsTable extends Component {
         } else {
             let seenOptions = [];
             for(let result of this.props.results) {
-                for(let key of Object.keys(result).sort()) {
+                for(let key of Object.keys(result).sort((a,b) => {
+                    console.log("a,b",a,b)
+                    if(a === 'submitted_by') {
+                        return -1;
+                    } else if(a === 'repertoire_id') {
+                        if(b === 'submitted_by') {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } else if(b === 'submitted_by' || b === 'repertoire_id') {
+                        return 1;
+                    }
+
+                    let nameA = a.toUpperCase(); // ignore upper and lowercase
+                    let nameB = b.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+
+                    // names must be equal
+                    return 0;
+                })) {
                     if(!seenOptions.includes(key)) {
                         options.push({label: makeCapital(key), value: key});
                         seenOptions.push(key);
