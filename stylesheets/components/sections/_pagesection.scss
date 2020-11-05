@@ -9,21 +9,8 @@
     //background-position: left bottom;
     //background-size: cover;
     //background-repeat: no-repeat;
-    min-height: 95vh;
+    min-height: 100vh;
   }
-  &#documentation-section-container {
-    background-color: #d9eff7;
-  }
-  &#links-section-container {
-    //background-color: #d9eff7;
-    background-image: linear-gradient(#d9eff7, #f9f9ff);
-  }
-
-}
-
-.page-section {
-  max-width: 1024px;
-
 
 }
 
@@ -43,14 +30,47 @@
   }
 }
 
+.ReactTable .rt-thead {
+  overflow-x: scroll;
+}
+
 #clonomatch-section-options {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  //background: url(images/bg_patterns/bg3.png) left;
-  //background-size: contain;
 }
 
+#about-section-container {
+  background-color: #d9eff7;
+  top: 0px;
+  width: 100%;
+  //max-width: 1280px;
+  //border-radius: 1em;
+  padding: 1em;
+  //height: 100px;
+}
+
+#about-section {
+  max-width: 1024px;
+  overflow-y: scroll;
+}
+
+#help-section-container {
+  background-color: #d9eff7;
+  top: 0px;
+  max-width: 1280px;
+  border-radius: 1em;
+  padding: 1em;
+  //height: 100px;
+}
+
+//#help-section {
+//  overflow-y: scroll;
+//}
+
+#main-links-section {
+  background-color: #d9eff7;
+}
 
 @media only screen and (max-width: 600px) {
   #clonomatch-section-options {
@@ -62,5 +82,9 @@
 @media only screen and (max-width: 800px) {
   #clonomatch-section-results {
     display: none;
+  }
+
+  #links-section-container {
+    max-width: 80%;
   }
 }

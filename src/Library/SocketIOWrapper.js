@@ -1,9 +1,9 @@
 import openSocket from "socket.io-client";
-import baseURL from "./BaseURL";
+import { BASE_URL } from "./Enums";
 
 class SocketIOWrapper {
     constructor() {
-        this.socket = openSocket(baseURL);
+        this.socket = openSocket(BASE_URL);
         this.callbacks = {}
     }
 

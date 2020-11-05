@@ -1,9 +1,5 @@
 {
   "app": {
-    "clonotypes": {
-      "dir": "lib/clonotypes",
-      "lines_per_file": 50000
-    },
     "data_dir": "generated_data",
     "sibsearch": {
       "db_dir": "lib/sibsearch/dbs",
@@ -17,16 +13,9 @@
     }
   },
   "database": {
-    "mongo_url": "mongodb://127.0.0.1/",
-    "mongo_collection": "public",
-    "mongo_database": "sequences",
-    "schema": {
-      "v": "v",
-      "j": "j",
-      "d": "d",
-      "cdr3": "cdr3",
-      "donor": "donor"
-    }
+    "mongo_url": "mongodb://127.0.0.1",
+    "mongo_collection": "seqs",
+    "mongo_database": "public"
   },
   "sshtunnel": {
     "development": {},

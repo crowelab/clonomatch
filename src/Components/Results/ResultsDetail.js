@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function formatAlignment(alignments) {
@@ -11,8 +11,6 @@ function formatAlignment(alignments) {
 }
 
 const ResultsDetail = ({detail}) => {
-    // console.log("Detail:::",detail);
-
     return <div className={'results-detail-container'}>
         <h4 className={'results-detail-header'}>Entry Details</h4>
 

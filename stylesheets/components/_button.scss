@@ -64,3 +64,20 @@ button:focus {
 button:active {
   transform: scale(0.99);
 }
+
+#help-button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: #FFF;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  font-size: 3em;
+  border-radius: 1em;
+  border: solid 4px #fff;
+
+  &:hover, &:focus {
+    background: rgba(47,237,136);
+  }
+}

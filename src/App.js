@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import Layout from "./Components/Layout/Layout";
 import {ToastContainer,Zoom} from "react-toastify";
+
+let Papa = require("papaparse");
+Papa.SCRIPT_PATH = "./Library/External/papaparse.js";
 
 class App extends Component {
     constructor(props) {

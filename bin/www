@@ -7,6 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('tmp:server');
 const http = require('http');
+const tmp = require('tmp');
+const path = require('path');
+const crypto = require('crypto');
+const fs = require('fs');
+const { Parser } = require('json2csv');
+const { spawnSync } = require('child_process');
+const config = require(path.join(global.appRoot, process.env.CONF));
+
 
 /**
  * Get port from environment and store in Express.
@@ -29,13 +37,70 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
+const io = require("socket.io")(server, {
+    handlePreflightRequest: (req, res) => {
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
+    }
+});
+io.on('connection', (client) => {
+    console.log("Connection with client:", client.id);
+
+    client.on('bulk_sibsearch', (body) => {
+        let results = [];
+
+        let length = body.data.length;
+        for(let [index, row] of body.data.entries()) {
+            if('cdr3' in row) {
+                continue
+            }
+
+            let fileObject = tmp.fileSync({prefix: 'clonomatch-', postfix: '.json', keep: true});
+            let args = [config.app.sibsearch.executable, '--cdr3', row[2],
+                '--out', fileObject.name, '--pid', body.pid, '--coverage', body.coverage];
+            if (row[0] !== '') args.push('-v', row[0]);
+            if (row[1] !== '') args.push('-j', row[1]);
+
+            let process = spawnSync('python3', args);
+            if(process.error) console.error(process.error);
+            else if(process.status === 0) {
+                let result = require(fileObject.name);
+                results.push(...result);
+            }
+            else console.log("error running sibsearch on:", args, "with code:", process.status);
+
+            console.log("Done with:", fileObject.name, row[0], row[1], row[2]);
+            client.emit('bulk_update', 'Finished ' + String(index+1) + ' of ' + String(length));
+
+            fileObject.removeCallback();
+        }
+
+        let outname = body.filename.split('.')[0] + '_results' + crypto.randomBytes(3).toString('hex');
+        if(results.length > 0) {
+            fs.writeFileSync(path.join(config.app.data_dir,outname + '.json'), JSON.stringify(results));
+            const csvParser = new Parser()
+            fs.writeFileSync(path.join(config.app.data_dir,outname + '.csv'), csvParser.parse(results));
+        }
+
+        let sliceLength = Math.min(1000,results.length);
+        client.emit('bulk_finish', {success: true, in_filename: body.filename, out_filename: outname, sample: results.slice(0,sliceLength)});
+    });
+    client.on('disconnect', (client) => {
+        console.log("Disconnected:", client.id);
+    })
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
-server.timeout = 60*1000*3; //5 minute timeout
+server.timeout = 60*1000*5; //5 minute timeout
 server.on('error', onError);
 server.on('listening', onListening);
 console.log("Listening on port:", port);
@@ -99,3 +164,8 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+module.exports = {
+    server: server,
+    io: io
+};
