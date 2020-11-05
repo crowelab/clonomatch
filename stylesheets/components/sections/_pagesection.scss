@@ -4,11 +4,7 @@
 
   &#clonomatch-section-container {
     color: #FFF;
-    //background-color: #30bced;
     background-image: linear-gradient(#30bced, #d9eff7);
-    //background-position: left bottom;
-    //background-size: cover;
-    //background-repeat: no-repeat;
     min-height: 100vh;
   }
 
@@ -44,10 +40,7 @@
   background-color: #d9eff7;
   top: 0px;
   width: 100%;
-  //max-width: 1280px;
-  //border-radius: 1em;
   padding: 1em;
-  //height: 100px;
 }
 
 #about-section {
@@ -61,12 +54,7 @@
   max-width: 1280px;
   border-radius: 1em;
   padding: 1em;
-  //height: 100px;
 }
-
-//#help-section {
-//  overflow-y: scroll;
-//}
 
 #main-links-section {
   background-color: #d9eff7;
@@ -77,13 +65,13 @@
     flex-direction: column;
     align-items: center;
   }
-}
 
-@media only screen and (max-width: 800px) {
   #clonomatch-section-results {
     display: none;
   }
+}
 
+@media only screen and (max-width: 800px) {
   #links-section-container {
     max-width: 80%;
   }

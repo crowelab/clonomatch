@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from pymongo import MongoClient
 import json
 import argparse
@@ -7,23 +9,20 @@ import sys
 from os import path
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', help='Configuration file')
+parser.add_argument('--config', help='Configuration file', default="../conf/clonomatch.json")
 args = parser.parse_args()
 print("Loading config file")
 
-config = {}
-if args.config and args.config != '':
-  with open(args.config) as fin:
-    config = json.load(fin)
-else:
-  BASE_DIR = path.join(path.dirname(path.realpath(__file__)),'..')
-  with open(path.join(BASE_DIR,'conf','clonomatch.json')) as fin:
-    config = json.load(fin)
+try:
+  if args.config and args.config != '':
+    with open(args.config) as fin:
+      config = json.load(fin)
+except:
+  print("The config file was not found")
+  sys.exit(-1)
 
 if not path.exists(config['app']['sibsearch']['db_dir']):
   os.makedirs(config['app']['sibsearch']['db_dir'])
-# if not path.exists(config['app']['clonotypes']['dir']):
-#   os.makedirs(config['app']['clonotypes']['dir'])
 
 print("config file loaded")
 

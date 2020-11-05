@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import {AIRR_CELL_PROCESSING_FIELDS, AIRR_NUCLEIC_ACID_FIELDS, AIRR_REPERTOIRE_FIELDS, AIRR_SEQUENCING_FIELDS,
-    AIRR_STUDY_FIELDS, AIRR_SUBJECT_FIELDS, AIRR_REARRANGEMENT_FIELDS} from '../../Library/Enums.js';
-import Option, {OPTION_TYPES} from "../Options/Option";
+    AIRR_STUDY_FIELDS, AIRR_SUBJECT_FIELDS, AIRR_REARRANGEMENT_FIELDS} from '../Library/Enums.js';
+import Option, {OPTION_TYPES} from "./Options/Option";
 
 const MAX_PAGE_SIZE = 15;
 const ADDITIONAL_FIELDS = ["match_cdr3", "query_cdr3", "percent_identity", "coverage", "somatic_variants"];

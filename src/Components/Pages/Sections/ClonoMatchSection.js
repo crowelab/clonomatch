@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BASE_URL } from "../../../Library/Enums";
 import { BarLoader } from 'react-spinners';
 import {CSSTransition} from "react-transition-group";
-import ResultsTable from "../../Results/ResultsTable";
+import ResultsTable from "../../ResultsTable";
 import { toast } from 'react-toastify';
 import ClonoMatchOptions, {SEARCH_TYPE} from "../../Options/ClonoMatchOptions";
 import Papa from "papaparse";

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import MetadataSummaryTable from "../../Metadata/MetadataSummaryTable";
-// import PropTypes from 'prop-types';
+import MetadataSummaryTable from "../../MetadataSummaryTable";
 
 class AboutSection extends Component {
     render() {
@@ -23,25 +22,13 @@ class AboutSection extends Component {
                     <span><a href={"https://github.com/crowelab/clonomatch"}>ClonoMatch on Github</a></span>
                 </div>
 
-                <div>
-                    <span><a href={"https://github.com/crowelab/PyIR"}>PyIR sequence analyzer</a>, used to process sequences.</span>
-                </div>
-
-                <div>
-                    <span>Statistics about the data: <a href={"/files/study_stats-curated.ods"}>Study Statistics</a>, <a href={'/files/clonomatch_stats.csv'}>ClonoMatch dataset statistics</a></span>
-                </div>
-
-                <div>
-                    <span>BCell HIP sequences referenced in <a href={"https://www.nature.com/articles/s41586-019-0934-8"}><i>nature</i></a>.</span>
-                </div>
+                {/*<div>*/}
+                {/*    <span><a href={"https://github.com/crowelab/PyIR"}>PyIR sequence analyzer</a>, used to process sequences.</span>*/}
+                {/*</div>*/}
             </div>
         </div>;
     }
 }
-//
-// const AboutSection = () => {
-//
-// };
 
 AboutSection.propTypes = {};
 

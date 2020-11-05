@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MetadataSummaryTable from "../../Metadata/MetadataSummaryTable";
+import MetadataSummaryTable from "../../MetadataSummaryTable";
 // import PropTypes from 'prop-types';
 
 class HelpSection extends Component {

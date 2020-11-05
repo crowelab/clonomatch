@@ -17,24 +17,15 @@ button {
   transition: background 250ms ease-in-out, transform 150ms ease, opacity 250ms;
   -webkit-appearance: none;
   -moz-appearance: none;
-  //border-radius: map-get($border-radius, medium);
   box-shadow: map-get($box-shadow, tiny);
 
-  &:hover, &:focus {
-    background: #1890bc;
-  }
-
-  &.contrast {
-    background: #e07a5f;
-  }
+  &:hover, &:focus { background: #1890bc; }
 
   &.secondary {
     background: #A1E0F7;
     color: #666;
 
-    &:hover, &:focus {
-      background: #A1E0F7;
-    }
+    &:hover, &:focus { background: #A1E0F7; }
   }
 
   &.utility {
@@ -58,7 +49,6 @@ button:disabled {
 
 button:focus {
   outline: 1px dashed #fff;
-  //outline-offset: -4px;
 }
 
 button:active {
