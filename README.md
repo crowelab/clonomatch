@@ -121,8 +121,7 @@ npm run sass
 - - - -
 
 ## Sample Data
-- Example MongoDB collection: (https://drive.google.com/file/d/1Jouvdiguph9cla5TzSqJtl8Ru8IT8LD0/view?usp=sharing)
-- Example .csv file for bulk search: Coming Soon
+- Example MongoDB collection: https://drive.google.com/file/d/1Jouvdiguph9cla5TzSqJtl8Ru8IT8LD0/view?usp=sharing
 
 ## Links
 - [PyIR sequence analyzer](https://github.com/crowelab/PyIR), used to process sequences.
