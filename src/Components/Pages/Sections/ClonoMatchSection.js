@@ -270,6 +270,10 @@ class ClonoMatchSection extends Component {
                         </CSSTransition>
                     </div>
                 </div>
+
+                <div className={"main-links-section"}>
+                    <span>Statistics about the data: <a href={"/files/study_stats-curated.ods"}>Study Statistics</a>, <a href={'/files/clonomatch_stats.csv'}>ClonoMatch dataset statistics</a></span>
+                </div>
             </div>
         );
     }

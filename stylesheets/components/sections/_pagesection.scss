@@ -11,13 +11,6 @@
     //background-repeat: no-repeat;
     min-height: 100vh;
   }
-  &#documentation-section-container {
-    background-color: #d9eff7;
-  }
-  &#links-section-container {
-    //background-color: #d9eff7;
-    background-image: linear-gradient(#d9eff7, #f9f9ff);
-  }
 
 }
 
@@ -49,8 +42,25 @@
   //background-size: contain;
 }
 
-#links-section-container {
-  max-width: 800px;
+#about-section-container {
+  background-color: #d9eff7;
+  //width: 90%;
+  top: 0px;
+  max-width: 1280px;
+  border-radius: 1em;
+  //height: 100%;
+  padding: 1em;
+  height: 100px;
+  //overflow-y: scroll;
+
+}
+
+#about-section {
+  overflow-y: scroll;
+}
+
+#main-links-section {
+  background-color: #d9eff7;
 }
 
 @media only screen and (max-width: 600px) {

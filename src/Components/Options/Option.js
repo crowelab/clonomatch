@@ -177,7 +177,7 @@ class Option extends Component {
 						placeholder={this.props.placeholder}
                         className={"full-width"}
 						isSearchable={true}
-                        isClearable={true}
+                        isClearable={this.props.clearable}
 						isDisabled={this.props.disabled}
                         options={this.props.values}
 						value={this.props.default}
@@ -251,6 +251,7 @@ Option.propTypes = {
 	values: PropTypes.array,
 	min: PropTypes.number,
 	max: PropTypes.number,
+	clearable: PropTypes.bool,
     isMulti: PropTypes.bool,
 	width: PropTypes.string,
 	help: PropTypes.string,
@@ -260,6 +261,7 @@ Option.propTypes = {
 
 Option.defaultProps = {
 	allCaps: false,
+	clearable: true,
 	format: OPTION_FORMATS.INLINE
 };
 

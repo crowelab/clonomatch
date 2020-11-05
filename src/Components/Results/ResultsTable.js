@@ -103,7 +103,6 @@ const makeKeys = () => {
         if(field in additionalFields) {
             column = Object.assign(column, additionalFields[field]);
             def.push({label: makeCapital(field), value: field})
-            // options.push({label: makeCapital(field), value: field});
             options[field] = {label: makeCapital(field), value: field};
         } else {
             options[field] = {label: makeCapital(field), value: field};
@@ -169,7 +168,7 @@ class ResultsTable extends Component {
             }
         }
 
-        return <div className={"full-width flex-column"}>
+        return <div className={"full-width flex-column centered-horiz"}>
             <div className={"full-width flex-row centered-horiz"}>
                 <Option
                     onUpdate={(alias, val) => { this.toggleFields(val); }}
@@ -186,7 +185,7 @@ class ResultsTable extends Component {
                     }}}
                     />
             </div>
-            <div className={"full-width scrollable"}>
+            <div className={"full-width scrollable clonomatch-results-table-container"}>
                 <ReactTable
                     className={"full-width clonomatch-results-table"}
                     data={this.props.results}

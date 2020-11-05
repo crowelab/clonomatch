@@ -1,0 +1,169 @@
+//.clonomatch-results-table-container {
+//  width: 90%;
+//}
+
+.clonomatch-metadata-table {
+  background-color: #fff;
+  color: #000;
+  border: 0 !important;
+  max-width: 90%;
+
+  * {
+    transition: background-color 300ms;
+  }
+
+  >.rt-table {
+    .rt-thead {
+      color: #fff;
+      padding: 4px;
+      font-weight: bold;
+    }
+
+    >.rt-thead {
+      background-color: #2db4e5;
+      box-shadow: none !important;
+    }
+  }
+
+  .-odd {
+    background-color: rgba(0,0,0,0.00);
+
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+
+  .-even {
+    background-color: rgba(0,0,0,0.03);
+
+    &:hover {
+      background-color: rgba(0,0,0,0.08);
+    }
+  }
+
+  .rt-tbody {
+    cursor: pointer;
+  }
+
+  .rt-thead {
+    cursor: default;
+  }
+
+  .-pagination {
+    box-shadow: none !important;
+    border-top: 0 !important;
+
+    .-btn {
+      border-radius: 0 !important;
+      color: #fff !important;
+      background: #2db4e5 !important;
+    }
+  }
+}
+
+#show-table-input {
+  width: 200px;
+}
+
+
+.metadata-detail-container {
+  //max-width: 90%;
+  max-height: 80vh;
+  //max-height: 600px;
+  //overflow: scroll;
+  //border-radius: map-get($border-radius, medium);
+}
+
+.metadata-detail-header {
+  background-color: #30bced;
+  color: #fff;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.metadata-detail {
+  width: 100%;
+  border-radius: map-get($border-radius, medium);
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+  //font-size: 14px;
+  cursor: auto;
+  overflow: scroll;
+
+  tr {
+    font-weight: normal;
+    padding: map-get($spacing, medium);
+    max-width: 100%;
+  }
+
+  tr:nth-of-type(odd) {
+    background-color: #FFF;
+  }
+
+  tr:first-of-type {
+    //background-color: $color-scheme-1-bg-light;
+    //color: #fff;
+    //font-weight: bold;
+  }
+
+  tr:nth-of-type(even) {
+    background-color: #F9f9ff;
+  }
+
+  th:first-of-type {
+    width: 13%;
+    padding: map-get($spacing, medium);
+  }
+
+  th:last-of-type {
+
+  }
+
+  td:first-of-type {
+    width: 25%;
+  }
+
+  td {
+    padding: map-get($spacing, medium);
+  }
+}
+
+.metadata-alignment-view {
+  font-size: 12px;
+  font-family: Courier, monospace;
+}
+
+.metadata-scroll-view {
+  overflow: scroll;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .clonomatch-metadata-table {
+    font-size: 12px;
+  }
+
+  .metadata-detail-header {
+    background-color: #30bced;
+    color: #fff;
+    margin: 0;
+    padding: 0.25em;
+  }
+
+  .metadata-detail {
+    tr {
+      font-weight: normal;
+      padding: map-get($spacing, medium);
+      max-width: 100%;
+    }
+
+    td:first-of-type {
+      width: auto;
+    }
+
+    td {
+      padding: map-get($spacing, medium);
+    }
+  }
+}

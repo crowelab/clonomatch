@@ -405,7 +405,6 @@ export default class ClonoMatchOptions extends Component {
             if (option == null || Array.isArray(option) || option === '') {
                 stateChange[alias] = '';
 
-                console.log("Here!!!")
                 if ((alias === 'v' && (this.state.j === '' || this.state.j == null)) ||
                     (alias === 'j' && (this.state.v === '' || this.state.v == null))) {
                     stateChange['chainType'] = CHAIN_TYPE.NONE;
@@ -474,7 +473,7 @@ export default class ClonoMatchOptions extends Component {
                         <Option
                             alias={'v'}
                             name={'V Family'}
-                            placeholder={"IGHV1-2"}
+                            placeholder={"ex. IGHV1-2"}
                             style={{borderRadius: '0px'}}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.props.disabled}
@@ -486,7 +485,7 @@ export default class ClonoMatchOptions extends Component {
                             alias={'j'}
                             name={'J Family'}
                             style={{borderRadius: '0px'}}
-                            placeholder={"IGHJ1"}
+                            placeholder={"ex. IGHJ1"}
                             type={OPTION_TYPES.SELECT}
                             disabled={this.props.disabled}
                             required={false}
