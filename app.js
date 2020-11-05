@@ -20,9 +20,9 @@ app.use(cors(corsConfig));
 
 app.use(logger('dev'));
 
-app.use(bodyParser.text({limit: 1024*1024*1024}));
-app.use(express.json({limit: '5mb'}));
-app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+app.use(bodyParser.text({limit: 1024*1024*1024*10}));
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 let publicDir;
