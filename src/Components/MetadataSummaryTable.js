@@ -6,10 +6,10 @@ import Papa from "papaparse";
 const MAX_PAGE_SIZE = 15;
 const COLUMN_INFO = {
     'clonomatch_stats': [
-        {Header: 'Locus', accessor: 'locus', show: true, minWidth: 55, style: { overflowX: 'scroll', textOverflow: 'clip'}},
-        {Header: 'Unique V3J', accessor: 'unique_v3j', show: true, minWidth: 110, style: { overflowX: 'scroll', textOverflow: 'clip'}},
-        {Header: 'Unique VDJ', accessor: 'unique_vdj', show: true, minWidth: 110, style: { overflowX: 'scroll', textOverflow: 'clip'}},
-        {Header: 'Reads', accessor: 'reads', show: true, minWidth: 110, style: { overflowX: 'scroll', textOverflow: 'clip'}}
+        {Header: 'Locus', accessor: 'locus', show: true, minWidth: 55, style: { overflowX: 'auto', textOverflow: 'clip'}},
+        {Header: 'Unique V3J', accessor: 'unique_v3j', show: true, minWidth: 110, style: { overflowX: 'auto', textOverflow: 'clip'}},
+        {Header: 'Unique VDJ', accessor: 'unique_vdj', show: true, minWidth: 110, style: { overflowX: 'auto', textOverflow: 'clip'}},
+        {Header: 'Reads', accessor: 'reads', show: true, minWidth: 110, style: { overflowX: 'auto', textOverflow: 'clip'}}
     ]
 }
 

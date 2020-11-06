@@ -88,7 +88,7 @@ const makeKeys = () => {
     let template = {
         minWidth: 130,
         style: {
-            overflowX: 'scroll',
+            overflowX: 'auto',
             textOverflow: 'clip'
         },
         show: false
