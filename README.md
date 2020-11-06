@@ -124,6 +124,6 @@ npm run sass
 - Example MongoDB collection: https://drive.google.com/file/d/1Jouvdiguph9cla5TzSqJtl8Ru8IT8LD0/view?usp=sharing
 
 ## Links
-- [PyIR sequence analyzer](https://github.com/crowelab/PyIR), used to process sequences.
-- BCell HIP sequences referenced in [Nature](https://www.nature.com/articles/s41586-019-0934-8).
+- [PyIR](https://github.com/crowelab/PyIR), used to process sequences.
+- BCell HIP sequences referenced in [Nature](https://www.nature.com/articles/s41586-019-0934-8). [Download IGH sequences from this paper](https://figshare.com/articles/dataset/HIP_BCR_samples/12816455).
 - This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) Using React Scripts v. 2.1.3.
