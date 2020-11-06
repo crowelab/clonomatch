@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import Option, {OPTION_TYPES} from "./Options/Option";
 import Papa from "papaparse";
 
 const MAX_PAGE_SIZE = 15;

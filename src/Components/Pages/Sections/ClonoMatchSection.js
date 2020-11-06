@@ -6,7 +6,8 @@ import ResultsTable from "../../ResultsTable";
 import { toast } from 'react-toastify';
 import ClonoMatchOptions, {SEARCH_TYPE} from "../../Options/ClonoMatchOptions";
 import Papa from "papaparse";
-import SocketIOWrapper from "../../../Library/SocketIOWrapper";
+// import SocketIOWrapper from "../../../Library/SocketIOWrapper";
+import io from "socket.io-client";
 
 const PROCESS_STATUS = {
     INIT: 'init',
@@ -18,12 +19,17 @@ class ClonoMatchSection extends Component {
     constructor(props) {
         super(props);
 
-        this.socket = new SocketIOWrapper();
-        this.socket.setCallback('bulk_update', message => {
+        this.socket = io(BASE_URL)
+        this.socket.on('connect', () => {
+
+        });
+        this.socket.on('update', message => {
             this.setState({ progressMessage: message });
         });
-        this.socket.setCallback('bulk_finish', (results) => {
-            console.log("results:", results);
+        this.socket.on('bulk_finish', (results) => {
+            if(this.socketInterval != null) {
+                clearInterval(this.socketInterval);
+            }
 
             if(!results.success) {
                 toast("Error searching " + results.in_filename, {
@@ -57,9 +63,7 @@ class ClonoMatchSection extends Component {
                 }
             }
 
-            this.setState(newState, () => {
-                console.log("newState:", this.state);
-            });
+            this.setState(newState);
         });
 
         this.state = {
@@ -141,7 +145,6 @@ class ClonoMatchSection extends Component {
             }, () => {
                 Papa.parse(this.state.inputFile, {
                     complete: (results) => {
-                        // console.log("results:", results);
                         this.socket.emit('bulk_sibsearch', {
                             data: results.data,
                             pid: this.state.pid,

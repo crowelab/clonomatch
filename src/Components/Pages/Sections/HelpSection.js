@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import MetadataSummaryTable from "../../MetadataSummaryTable";
-// import PropTypes from 'prop-types';
 
 class HelpSection extends Component {
     componentDidMount() {
@@ -17,6 +15,9 @@ class HelpSection extends Component {
         return <div id={"help-section-container"} className={"page-section-container flex-column centered-horiz"}>
             <div id={"help-section"} className={"page-section flex-column centered full-width centered-horiz"}>
                 <h2>Help</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/qHVGfJelWLY" frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen></iframe>
                 <h3>Single Clonotype Search</h3>
                 <p>
                     This option allows the user to search for a single V3J clonotype. The user can input their V3J
@@ -69,10 +70,6 @@ class HelpSection extends Component {
         </div>;
     }
 }
-//
-// const AboutSection = () => {
-//
-// };
 
 HelpSection.propTypes = {};
 

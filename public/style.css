@@ -1713,7 +1713,7 @@ button:active {
   table-layout: fixed;
   text-align: left;
   cursor: auto;
-  overflow: scroll;
+  overflow: auto;
 }
 .results-detail tr {
   font-weight: normal;
@@ -1838,7 +1838,7 @@ button:active {
   table-layout: fixed;
   text-align: left;
   cursor: auto;
-  overflow: scroll;
+  overflow: auto;
 }
 .metadata-detail tr {
   font-weight: normal;
