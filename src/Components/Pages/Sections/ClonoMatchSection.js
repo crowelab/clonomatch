@@ -43,7 +43,7 @@ class ClonoMatchSection extends Component {
             if(results.sample.length > 0) {
                 newState = {
                     results_in_filename: results.in_filename,
-                    results_out_filename: results.out_filename,
+                    out_filename: results.out_filename,
                     results: results.sample,
                     processStatus: PROCESS_STATUS.SUCCESS,
                     progressMessage: 'Searching...',
@@ -57,7 +57,9 @@ class ClonoMatchSection extends Component {
                 }
             }
 
-            this.setState(newState);
+            this.setState(newState, () => {
+                console.log("newState:", this.state);
+            });
         });
 
         this.state = {
@@ -80,7 +82,6 @@ class ClonoMatchSection extends Component {
     }
 
     onUpdateOptions = (stateChange) => {
-        console.log("changing state:", stateChange);
         this.setState(stateChange, this.props.onUpdateOptions);
     };
 
@@ -140,7 +141,7 @@ class ClonoMatchSection extends Component {
             }, () => {
                 Papa.parse(this.state.inputFile, {
                     complete: (results) => {
-                        console.log("results:", results);
+                        // console.log("results:", results);
                         this.socket.emit('bulk_sibsearch', {
                             data: results.data,
                             pid: this.state.pid,
@@ -270,10 +271,6 @@ class ClonoMatchSection extends Component {
                         </CSSTransition>
                     </div>
                 </div>
-
-                {/*<div className={"main-links-section"}>*/}
-                {/*    <span>Statistics about the data: <a href={"/files/study_stats-curated.ods"}>Study Statistics</a>, <a href={'/files/clonomatch_stats.csv'}>ClonoMatch dataset statistics</a></span>*/}
-                {/*</div>*/}
             </div>
         );
     }

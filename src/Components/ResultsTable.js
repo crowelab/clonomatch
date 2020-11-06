@@ -161,7 +161,6 @@ class ResultsTable extends Component {
             let seenOptions = [];
             for(let result of this.props.results) {
                 for(let key of Object.keys(result).sort((a,b) => {
-                    console.log("a,b",a,b)
                     if(a === 'submitted_by') {
                         return -1;
                     } else if(a === 'repertoire_id') {
@@ -183,7 +182,6 @@ class ResultsTable extends Component {
                         return 1;
                     }
 
-                    // names must be equal
                     return 0;
                 })) {
                     if(!seenOptions.includes(key)) {

@@ -511,12 +511,13 @@ export default class ClonoMatchOptions extends Component {
                     classNames={"clonomatch-element"}
                     unmountOnExit
                     timeout={600}>
-                    <div className={"margin-huge"}>
-                        <label></label>
+                    <div className={"margin-huge flex-column centered-horiz"}>
+                        {/*<label></label>*/}
                         <input id="clonomatch-file-input" type="file" onChange={() => {
                             let fileInput = document.getElementById("clonomatch-file-input");
                             this.onUpdateOptions('inputFile', fileInput.files[0]);
                         }} />
+                        <span className={"spacing-large"}>Example csv: <a href={"/files/example.csv"}>example.csv</a></span>
                     </div>
                 </CSSTransition>
             </div>

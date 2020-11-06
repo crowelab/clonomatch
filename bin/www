@@ -87,8 +87,16 @@ io.on('connection', (client) => {
             fs.writeFileSync(path.join(config.app.data_dir,outname + '.csv'), csvParser.parse(results));
         }
 
+        console.log("outname:", outname);
+
         let sliceLength = Math.min(1000,results.length);
-        client.emit('bulk_finish', {success: true, in_filename: body.filename, out_filename: outname, sample: results.slice(0,sliceLength)});
+        client.emit('bulk_finish', {
+            success: true,
+            in_filename: body.filename,
+            out_filename: outname,
+            sample: results.slice(0,sliceLength),
+            results_length: results.length
+        });
     });
     client.on('disconnect', (client) => {
         console.log("Disconnected:", client.id);
